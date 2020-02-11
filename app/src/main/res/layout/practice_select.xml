@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".PracticeSelect">
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/practiceToolbar"
+        />
+
+    <RelativeLayout
+        android:id="@+id/checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:paddingLeft="5dp"
+        android:layout_below="@id/practiceToolbar"
+        android:paddingRight="5dp"
+        >
+
+        <CheckBox
+            android:id="@+id/multiply_checkbox"
+            android:layout_width="match_parent"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="@string/multiply" />
+
+        <CheckBox
+            android:id="@+id/divide_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="25sp"
+            android:layout_below="@id/multiply_checkbox"
+            android:text="@string/divide" />
+
+        <CheckBox
+            android:id="@+id/add_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="25sp"
+            android:layout_below="@id/divide_checkbox"
+            android:text="@string/add"
+            />
+        <CheckBox
+            android:id="@+id/sub_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="25sp"
+            android:layout_below="@id/add_checkbox"
+            android:text="@string/subtract" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/checkbox"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:text="@string/submit"
+            android:layout_margin="25dp"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>
