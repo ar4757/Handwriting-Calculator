@@ -36,6 +36,10 @@
 
 
         </activity>
+        <activity
+            android:name=".PracticeSelect"
+            android:label="@string/Practise">
+        </activity>
     </application>
 
 </manifest>
