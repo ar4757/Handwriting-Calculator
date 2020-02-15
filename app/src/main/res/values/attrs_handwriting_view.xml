@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="HandwritingView">
+        <attr name="hwString" format="string" />
+        <attr name="hwDimension" format="dimension" />
+        <attr name="hwColor" format="color" />
+        <attr name="hwDrawable" format="color|reference" />
+    </declare-styleable>
+</resources>
