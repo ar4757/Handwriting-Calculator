@@ -26,6 +26,7 @@
             android:name=".CalculatorActivity"
             android:label="Calculator Mode"
             android:theme="@style/AppTheme.NoActionBar" >
+
         </activity>
         <activity
             android:name=".PracticeActivity"
@@ -34,7 +35,8 @@
         </activity>
         <activity
             android:name=".PracticeSelect"
-            android:label="@string/Practise">
+            android:label="@string/Practice"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
