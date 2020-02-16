@@ -19,4 +19,6 @@
     <string name="add">Add</string>
     <string name="divide">Divide</string>
     <string name="Practise">Practise</string>
+    <string name="draw_board">DRAW BOARD</string>
+    <string name="result">RESULT</string>
 </resources>
