@@ -42,7 +42,7 @@ public class FormulaView extends View {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.FormulaView, defStyle, 0);
-
+/*
         mExampleString = a.getString(
                 R.styleable.FormulaView_exampleString);
         mExampleColor = a.getColor(
@@ -69,7 +69,7 @@ public class FormulaView extends View {
 
         // Update TextPaint and text measurements from attributes
         invalidateTextPaintAndMeasurements();
-
+*/
 
     }
 

@@ -28,7 +28,7 @@
             android:layout_width="59dp"
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/chalk"
+            android:contentDescription="@string/draw"
             android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/write" />
