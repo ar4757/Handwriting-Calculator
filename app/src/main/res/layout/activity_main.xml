@@ -21,12 +21,37 @@
 
     </com.google.android.material.appbar.AppBarLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+
+        android:layout_marginTop="200dp"
+        android:text="Calculator"
+        android:id="@+id/calculator"
+
+
+        />
+
+    <Button
+        android:layout_width= "120dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginVertical="100dp"
         android:text="Practise"
         android:id="@+id/practise"
+        android:layout_below="@+id/calculator"
+        />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="100dp"
+        android:text="Help"
+        android:id="@+id/help"
+        android:layout_below="@+id/practise"
         />
 
 

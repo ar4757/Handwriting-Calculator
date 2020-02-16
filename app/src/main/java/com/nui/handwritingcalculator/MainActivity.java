@@ -28,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        Button calculateButton= findViewById(R.id.calculator);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, CalculatorActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 
