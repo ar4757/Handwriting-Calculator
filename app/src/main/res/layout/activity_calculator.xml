@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".CalculatorActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/home_btn"
+            android:layout_width="61dp"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/home"
+            android:src="@drawable/home" />
+
+        <ImageButton
+            android:id="@+id/chalk_btn"
+            android:layout_width="59dp"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/chalk"
+            android:src="@drawable/chalk" />
+
+        <ImageButton
+            android:id="@+id/erasor_btn"
+            android:layout_width="55dp"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/erase"
+            android:src="@drawable/eraser" />
+
+        <ImageButton
+            android:id="@+id/clear_btn"
+            android:layout_width="59dp"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/clear"
+            android:src="@drawable/clear" />
+
+    </LinearLayout>
+
+    <com.nui.handwritingcalculator.HandwritingView
+        android:id="@+id/handwriting"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="3"
+        android:background="@color/design_default_color_secondary_variant" />
+
+    <LinearLayout
+        android:id="@+id/calculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/calculate_btn"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/Calculate" />
+    </LinearLayout>
+
+    <com.nui.handwritingcalculator.FormulaView
+        android:id="@+id/formula"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="1"
+        android:background="@color/design_default_color_secondary_variant" />
+
+
+</LinearLayout>
+
