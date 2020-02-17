@@ -141,21 +141,21 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                 // User chose "draw" - only necessary if erase was previously selected
                drawingMode.setText(getString(R.string.draw_mode));
                 Toast.makeText(getApplicationContext(),"draw selected",Toast.LENGTH_SHORT).show();
-
                 break;
 
             case R.id.action_erase:
                 // User chose "erase"
                 drawingMode.setText(getString(R.string.erase_mode));
                 Toast.makeText(getApplicationContext(),"erase selected",Toast.LENGTH_SHORT).show();
-
                 break;
+
             case R.id.action_clear:
                 // User chose "clear" - clear canvas and clear formula area
                 Toast.makeText(getApplicationContext(),"clear selected",Toast.LENGTH_SHORT).show();
-                hwView.clearScreen();
-
+                gOverlay.removeAllViews();
+                mathExpressionString = "";
                 break;
+
             case R.id.action_help:
                 // User chose "help" - display help information
                 Toast.makeText(getApplicationContext(),"help selected",Toast.LENGTH_SHORT).show();
