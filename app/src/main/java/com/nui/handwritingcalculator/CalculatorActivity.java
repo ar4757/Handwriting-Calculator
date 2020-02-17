@@ -31,7 +31,7 @@ public class CalculatorActivity extends AppCompatActivity {
         drawingMode = findViewById(R.id.mode);
 
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
