@@ -20,11 +20,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button demoButton= findViewById(R.id.practise);
+        Button demoButton= findViewById(R.id.practice);
         demoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, PracticeSelect.class);
+                startActivity(i);
+            }
+        });
+
+        Button calculateButton= findViewById(R.id.calculator);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, CalculatorActivity.class);
                 startActivity(i);
             }
         });
