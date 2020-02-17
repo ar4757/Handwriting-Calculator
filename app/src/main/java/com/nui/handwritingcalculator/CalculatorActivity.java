@@ -75,8 +75,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        hwView =  findViewById(R.id.handwriting);
-        drawingMode = findViewById(R.id.mode);
+
     }
 
     public void onGesturePerformed(GestureOverlayView overlay, Gesture
@@ -137,6 +136,9 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         // as you specify a parent activity in AndroidManifest.xml.
 
         boolean rtn = true;
+
+        hwView =  findViewById(R.id.handwriting);
+        drawingMode = findViewById(R.id.mode);
 
         switch (item.getItemId()) {
             case R.id.action_draw:
