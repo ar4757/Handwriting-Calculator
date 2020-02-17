@@ -15,20 +15,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
 
-        </activity>
-
-        <activity
-            android:name=".CalculatorActivity"
-            android:label="Calculator Mode"
-
-            android:parentActivityName="com.nui.handwritingcalculator.MainActivity" >
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nui.handwritingcalculator.MainActivity" />
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -37,16 +23,22 @@
         </activity>
 
         <activity
+            android:name=".CalculatorActivity"
+            android:label="Calculator Mode"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
             android:name=".PracticeActivity"
             android:label="@string/practice_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-
+            android:parentActivityName=".PracticeSelect"
+            >
         </activity>
         <activity
             android:name=".PracticeSelect"
-            android:label="@string/Practise">
-
+            android:label="@string/Practice"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

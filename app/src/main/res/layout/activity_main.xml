@@ -10,6 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:id="@+id/parentToolbar"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,14 +21,42 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/Practise"
-        android:id="@+id/practise"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/parentToolbar"
+        android:layout_margin="10dp">
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:text="Calculator"
+            android:id="@+id/calculator"
 
+            />
+
+        <Button
+            android:layout_width= "120dp"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="100dp"
+            android:text="Practice"
+            android:id="@+id/practice"
+            android:layout_below="@+id/calculator"
+            />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp"
+            android:layout_centerHorizontal="true"
+            android:text="Help"
+            android:id="@+id/help"
+            android:layout_below="@+id/practice"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>
