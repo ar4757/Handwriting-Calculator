@@ -29,7 +29,6 @@
         android:text="Calculator"
         android:id="@+id/calculator"
 
-
         />
 
     <Button

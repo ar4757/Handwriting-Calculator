@@ -27,9 +27,8 @@
             android:label="Calculator Mode"
 
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity" />
 
-        </activity>
         <activity
             android:name=".PracticeActivity"
             android:label="@string/practice_name"
