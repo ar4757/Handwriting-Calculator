@@ -1,171 +1,137 @@
 package com.nui.handwritingcalculator;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
+import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * TODO: document your custom view class.
- */
+import java.util.ArrayList;
+
+
 public class HandwritingView extends View {
-    private String mExampleString; // TODO: use a default from R.string...
-    private int mExampleColor = Color.RED; // TODO: use a default from R.color...
-    private float mExampleDimension = 0; // TODO: use a default from R.dimen...
-    private Drawable mExampleDrawable;
 
-    private TextPaint mTextPaint;
-    private float mTextWidth;
-    private float mTextHeight;
+    public static final int DEFAULT_COLOR = Color.WHITE;
+    public static final int DEFAULT_BG_COLOR = Color.BLACK;
+    public static final int DEFAULT_WIDTH = 5;
+    //gesture variables
+    private Path stroke;
+    private ArrayList<Path> strokeList = new ArrayList<>();
+    private Paint strokePaint;
+    //canvas variables
+    private Bitmap bitmap;
+    private Canvas canvas;
+    private Paint bitmapPaint = new Paint(Paint.DITHER_FLAG);
+    
+    private float curX, curY; //current location on screen
 
+    
+    public HandwritingView(Context context) {
+        this(context, null);
+    }
 
-    public HandwritingView(Context context, AttributeSet attrs) {
+    public  HandwritingView(Context context, AttributeSet attrs) {
         super(context, attrs);
-       // init(attrs, 0);
-        //setupHandwriting();
+        setup();
     }
 
+    private void setup() {
+        //Set up stroke paint values
+        
+        strokePaint = new Paint();
+        strokePaint.setColor(DEFAULT_COLOR);
+        strokePaint.setAntiAlias(true);
+        strokePaint.setDither(true);
+        strokePaint.setXfermode(null);
+        strokePaint.setMaskFilter(null);
+        strokePaint.setAlpha(0xff);
+        strokePaint.setStrokeWidth(DEFAULT_WIDTH);
+        strokePaint.setStyle(Paint.Style.STROKE);
+        strokePaint.setStrokeJoin(Paint.Join.ROUND);
+        strokePaint.setStrokeCap(Paint.Cap.ROUND);
 
-    private void init(AttributeSet attrs, int defStyle) {
-        // Load attributes
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.HandwritingView, defStyle, 0);
-
-        mExampleString = a.getString(
-                R.styleable.HandwritingView_hwString);
-        mExampleColor = a.getColor(
-                R.styleable.HandwritingView_hwColor,
-                mExampleColor);
-        // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
-        // values that should fall on pixel boundaries.
-        mExampleDimension = a.getDimension(
-                R.styleable.HandwritingView_hwDimension,
-                mExampleDimension);
-
-        if (a.hasValue(R.styleable.HandwritingView_hwDrawable)) {
-            mExampleDrawable = a.getDrawable(
-                    R.styleable.HandwritingView_hwDrawable);
-            mExampleDrawable.setCallback(this);
-        }
-
-        a.recycle();
-
-        // Set up a default TextPaint object
-        mTextPaint = new TextPaint();
-        mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setTextAlign(Paint.Align.LEFT);
-
-        // Update TextPaint and text measurements from attributes
-        invalidateTextPaintAndMeasurements();
-    }
-
-    private void invalidateTextPaintAndMeasurements() {
-        mTextPaint.setTextSize(mExampleDimension);
-        mTextPaint.setColor(mExampleColor);
-        mTextWidth = mTextPaint.measureText(mExampleString);
-
-        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-        mTextHeight = fontMetrics.bottom;
     }
 
     @Override
+    protected void onSizeChanged(int w, int h , int oldw, int oldh) {
+        //Redraw the canvas
+        
+        super.onSizeChanged(w,h,oldw, oldh);
+
+        bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+
+    }
+
+
+    @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+       // canvas.save();  //This doesn't seem to be necessary
+        
+        canvas.drawColor(DEFAULT_BG_COLOR);
 
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        int paddingLeft = getPaddingLeft();
-        int paddingTop = getPaddingTop();
-        int paddingRight = getPaddingRight();
-        int paddingBottom = getPaddingBottom();
+        //draw the strokes on the canvas
+        for (Path fp : strokeList) {
+            canvas.drawPath(fp, strokePaint);
+        }
 
-        int contentWidth = getWidth() - paddingLeft - paddingRight;
-        int contentHeight = getHeight() - paddingTop - paddingBottom;
-
-
+        canvas.drawBitmap(bitmap, 0, 0, bitmapPaint);
+       //canvas.restore();  //This doesn't seem to be necessary
     }
 
-    /**
-     * Gets the example string attribute value.
-     *
-     * @return The example string attribute value.
-     */
-    public String getExampleString() {
-        return mExampleString;
+    private void strokeBegin(float x, float y) {
+        stroke = new Path();
+        strokeList.add(stroke);
+
+        stroke.reset();
+        stroke.moveTo(x, y);
+        curX = x;
+        curY = y;
     }
 
-    /**
-     * Sets the view's example string attribute value. In the example view, this string
-     * is the text to draw.
-     *
-     * @param exampleString The example string attribute value to use.
-     */
-    public void setExampleString(String exampleString) {
-        mExampleString = exampleString;
-        invalidateTextPaintAndMeasurements();
+    private void strokeMove(float x, float y) {
+
+        stroke.quadTo(curX, curY, (x + curX) / 2, (y + curY) / 2);
+        curX = x;
+        curY = y;
     }
 
-    /**
-     * Gets the example color attribute value.
-     *
-     * @return The example color attribute value.
-     */
-    public int getExampleColor() {
-        return mExampleColor;
+    private void strokeEnd() {
+        stroke.lineTo(curX, curY);
     }
 
-    /**
-     * Sets the view's example color attribute value. In the example view, this color
-     * is the font color.
-     *
-     * @param exampleColor The example color attribute value to use.
-     */
-    public void setExampleColor(int exampleColor) {
-        mExampleColor = exampleColor;
-        invalidateTextPaintAndMeasurements();
+    public void clearScreen() {
+        //Clear the display in handwriting area
+        //Should we also clear the formula area?
+
+        strokeList.clear();
+        invalidate();
     }
 
-    /**
-     * Gets the example dimension attribute value.
-     *
-     * @return The example dimension attribute value.
-     */
-    public float getExampleDimension() {
-        return mExampleDimension;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN :
+                strokeBegin(x, y);
+                break;
+            case MotionEvent.ACTION_MOVE :
+                strokeMove(x, y);
+                break;
+            case MotionEvent.ACTION_UP :
+                strokeEnd();
+                break;
+        }
+        invalidate();
+        return true;
     }
 
-    /**
-     * Sets the view's example dimension attribute value. In the example view, this dimension
-     * is the font size.
-     *
-     * @param exampleDimension The example dimension attribute value to use.
-     */
-    public void setExampleDimension(float exampleDimension) {
-        mExampleDimension = exampleDimension;
-        invalidateTextPaintAndMeasurements();
-    }
 
-    /**
-     * Gets the example drawable attribute value.
-     *
-     * @return The example drawable attribute value.
-     */
-    public Drawable getExampleDrawable() {
-        return mExampleDrawable;
-    }
-
-    /**
-     * Sets the view's example drawable attribute value. In the example view, this drawable is
-     * drawn above the text.
-     *
-     * @param exampleDrawable The example drawable attribute value to use.
-     */
-    public void setExampleDrawable(Drawable exampleDrawable) {
-        mExampleDrawable = exampleDrawable;
-    }
 }
