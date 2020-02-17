@@ -1,6 +1,7 @@
 package com.nui.handwritingcalculator;
 
 import android.content.Context;
+import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,7 +15,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 
-public class HandwritingView extends View {
+public class HandwritingView extends GestureOverlayView {
 
     public static final int DEFAULT_COLOR = Color.WHITE;
     public static final int DEFAULT_BG_COLOR = Color.BLACK;
