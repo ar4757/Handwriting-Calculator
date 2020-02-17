@@ -71,6 +71,12 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                 solutionText.setText("Solution to " + mathExpressionString + " goes here");
             }
         });
+
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        hwView =  findViewById(R.id.handwriting);
+        drawingMode = findViewById(R.id.mode);
     }
 
     public void onGesturePerformed(GestureOverlayView overlay, Gesture
@@ -113,11 +119,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
             }
         }
 
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        hwView =  findViewById(R.id.handwriting);
-        drawingMode = findViewById(R.id.mode);
     }
 
     @Override
