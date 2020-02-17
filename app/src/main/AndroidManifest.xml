@@ -21,7 +21,6 @@
             android:name=".CalculatorActivity"
             android:label="Calculator Mode"
 
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="com.nui.handwritingcalculator.MainActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

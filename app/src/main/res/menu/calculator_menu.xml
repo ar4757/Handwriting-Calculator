@@ -8,20 +8,20 @@
         android:id="@+id/action_draw"
         android:icon="@drawable/write"
         android:title="@string/action_write"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_erase"
         android:icon="@drawable/eraser"
         android:title="@string/action_erase"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_clear"
         android:icon="@drawable/clear"
         android:title="@string/action_clear"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_help"
         android:icon="@drawable/help"
         android:title="@string/action_help"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>
