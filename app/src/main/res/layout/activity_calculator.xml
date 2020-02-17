@@ -80,6 +80,9 @@
 
     <com.nui.handwritingcalculator.HandwritingView
         android:id="@+id/handwriting"
+        android:gestureColor="#FFFFFF"
+        android:uncertainGestureColor="#FFFFFF"
+        android:gestureStrokeType="multiple"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -114,8 +117,8 @@
             android:textStyle="normal" />
     </LinearLayout>
 
-    <com.nui.handwritingcalculator.FormulaView
-        android:id="@+id/formula"
+    <TextView
+        android:id="@+id/solution"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -123,8 +126,9 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="3dp"
         android:layout_weight="1"
-        android:background="@color/design_default_color_on_secondary" />
-
+        android:background="@color/design_default_color_on_secondary"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
 
 </LinearLayout>
 
