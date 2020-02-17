@@ -105,6 +105,14 @@ public class HandwritingView extends View {
         stroke.lineTo(curX, curY);
     }
 
+    public void clearScreen() {
+        //Clear the display in handwriting area
+        //Should we also clear the formula area?
+
+        strokeList.clear();
+        invalidate();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
@@ -125,11 +133,5 @@ public class HandwritingView extends View {
         return true;
     }
 
-    public void clearScreen() {
-        //Clear the display in handwriting area
-        //Should we also clear the formula area?
 
-        strokeList.clear();
-        invalidate();
-    }
 }
