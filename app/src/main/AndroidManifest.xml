@@ -34,6 +34,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nui.handwritingcalculator.MainActivity" />
 
+        </activity>
+
         <activity
             android:name=".PracticeActivity"
             android:label="@string/practice_name"
