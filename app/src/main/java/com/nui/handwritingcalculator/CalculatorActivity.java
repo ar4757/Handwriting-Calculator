@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.gesture.Prediction;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -75,6 +77,9 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
     }
 
