@@ -4,8 +4,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.gesture.GestureStroke;
 import android.gesture.Prediction;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewOverlay;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +39,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static android.gesture.GestureStore.ORIENTATION_INVARIANT;
+import static android.gesture.GestureStore.ORIENTATION_SENSITIVE;
 import static android.gesture.GestureStore.SEQUENCE_INVARIANT;
 
 public class CalculatorActivity extends AppCompatActivity implements OnGesturePerformedListener {
@@ -41,9 +47,13 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     private GestureLibrary gLibrary;
     private GestureOverlayView gOverlay;
     private String mathExpressionString;
+    private boolean solutionDisplayed=false;
 
-    HandwritingView hwView;
+ //   HandwritingView hwView;
     TextView drawingMode;
+    TextView solutionView;   //text view where we show what the user wrote and the solution
+    ArrayList<Character> formula = new ArrayList<>();
+    ArrayList<Gesture> gestureList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +63,8 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         setSupportActionBar(toolbar);
 
         gLibrary = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        //gLibrary.setOrientationStyle(ORIENTATION_INVARIANT);
-        //gLibrary.setSequenceType(SEQUENCE_INVARIANT);
+        //gLibrary.setOrientationStyle(ORIENTATION_SENSITIVE);
+        gLibrary.setSequenceType(SEQUENCE_INVARIANT);
         if (!gLibrary.load()) {
             finish();
         }
@@ -63,14 +73,16 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         gOverlay.setGestureStrokeAngleThreshold(90.0f);
         gOverlay.addOnGesturePerformedListener(this);
 
+
         mathExpressionString = "";
+        solutionView = findViewById(R.id.solution);
 
         Button calculateButton = findViewById(R.id.calculate_btn);
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView solutionText = findViewById(R.id.solution);
-                solutionText.setText("Solution to " + mathExpressionString + " goes here");
+               // TextView solutionText = findViewById(R.id.solution);
+                calculate();
             }
         });
 
@@ -81,11 +93,13 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
+   //     hwView =  findViewById(R.id.handwriting);
+
     }
 
-    public void onGesturePerformed(GestureOverlayView overlay, Gesture
-            gesture) {
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
         ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
+
         for (int i = 0; i < predictions.size(); i++) {
             System.out.println("Prediction: " + predictions.get(i).name + " with score of " + predictions.get(i).score);
         }
@@ -104,28 +118,57 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
             Toast.makeText(this, action, Toast.LENGTH_SHORT).show();
             if (!action.equals("invalid")) {
-                TextView recognizedText = new TextView(this);
-                recognizedText.setText(action);
-                recognizedText.setTextColor(Color.WHITE);
-                float x = gesture.getBoundingBox().left;
-                float y = gesture.getBoundingBox().top;
-                float height = gesture.getBoundingBox().height();
-                float width = gesture.getBoundingBox().width();
-                recognizedText.setX(x - 10);
-                recognizedText.setY(y - 90);
-                if (width > height) {
-                    recognizedText.setTextSize(width / 2);
-                } else {
-                    recognizedText.setTextSize(height / 2);
+                keepGestureOnScreen(gesture);
+                if (solutionDisplayed) {
+                    clearSolution();
                 }
-                gOverlay.addView(recognizedText);
+                gestureList.add(gesture);
                 mathExpressionString += action;
+                solutionView.setText(mathExpressionString);
+
+//                TextView recognizedText = new TextView(this);
+//                recognizedText.setText(action);
+//                recognizedText.setTextColor(Color.WHITE);
+//                float x = gesture.getBoundingBox().left;
+//                float y = gesture.getBoundingBox().top;
+//                float height = gesture.getBoundingBox().height();
+//                float width = gesture.getBoundingBox().width();
+//                recognizedText.setX(x - 10);
+//                recognizedText.setY(y - 90);
+//                if (width > height) {
+//                    recognizedText.setTextSize(width / 2);
+//                } else {
+//                    recognizedText.setTextSize(height / 2);
+//                }
+//                gOverlay.addView(recognizedText);
+//                mathExpressionString += action;
             }
         }
 
 
     }
 
+    private void keepGestureOnScreen(Gesture gesture) {
+        GestureView newGestureView = new GestureView(this, gesture);
+        gOverlay.addView(newGestureView);
+    }
+
+    private void clearSolution() {
+        solutionView.setText("");
+        mathExpressionString = "";
+        solutionDisplayed = false;
+    }
+    private void clear() {
+        gestureList.clear();
+    }
+
+    private void calculate() {
+        //send formula for processing then write string to solutionView
+
+        solutionView.setText("Solution to " + mathExpressionString + " goes here");
+        solutionDisplayed = true;
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -142,7 +185,6 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
         boolean rtn = true;
 
-        hwView =  findViewById(R.id.handwriting);
         drawingMode = findViewById(R.id.mode);
 
         switch (item.getItemId()) {
@@ -162,7 +204,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                 // User chose "clear" - clear canvas and clear formula area
                 Toast.makeText(getApplicationContext(),"clear selected",Toast.LENGTH_SHORT).show();
                 gOverlay.removeAllViews();
-                mathExpressionString = "";
+                clear();
                 break;
 
             case R.id.action_help:
