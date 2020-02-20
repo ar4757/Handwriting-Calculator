@@ -4,8 +4,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.gesture.GestureStroke;
 import android.gesture.Prediction;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewOverlay;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +117,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
             Toast.makeText(this, action, Toast.LENGTH_SHORT).show();
             if (!action.equals("invalid")) {
+                keepGestureOnScreen(gesture);
                 if (solutionDisplayed) {
                     clearSolution();
                 }
@@ -139,6 +145,11 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         }
 
 
+    }
+
+    private void keepGestureOnScreen(Gesture gesture) {
+        GestureView newGestureView = new GestureView(this, gesture);
+        gOverlay.addView(newGestureView);
     }
 
     private void clearSolution() {
