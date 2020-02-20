@@ -39,6 +39,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static android.gesture.GestureStore.ORIENTATION_INVARIANT;
+import static android.gesture.GestureStore.ORIENTATION_SENSITIVE;
 import static android.gesture.GestureStore.SEQUENCE_INVARIANT;
 
 public class CalculatorActivity extends AppCompatActivity implements OnGesturePerformedListener {
@@ -62,8 +63,8 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         setSupportActionBar(toolbar);
 
         gLibrary = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        //gLibrary.setOrientationStyle(ORIENTATION_INVARIANT);
-        //gLibrary.setSequenceType(SEQUENCE_INVARIANT);
+        //gLibrary.setOrientationStyle(ORIENTATION_SENSITIVE);
+        gLibrary.setSequenceType(SEQUENCE_INVARIANT);
         if (!gLibrary.load()) {
             finish();
         }
