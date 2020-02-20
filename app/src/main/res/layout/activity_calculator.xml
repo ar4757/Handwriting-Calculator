@@ -98,7 +98,7 @@
         android:layout_weight="1"
         android:background="@color/design_default_color_on_secondary"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
 
