@@ -49,9 +49,9 @@
 
     <com.nui.handwritingcalculator.HandwritingView
         android:id="@+id/handwriting"
-        android:gestureColor="#FFFFFF"
-        android:uncertainGestureColor="#FFFFFF"
         android:gestureStrokeType="multiple"
+        android:fadeOffset="0"
+        android:fadeDuration="0"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
