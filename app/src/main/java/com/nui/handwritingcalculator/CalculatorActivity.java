@@ -13,6 +13,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +57,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     TextView solutionView;   //text view where we show what the user wrote and the solution
     ArrayList<Character> formula = new ArrayList<>();
     ArrayList<Gesture> gestureList = new ArrayList<>();
+    Gesture currentGesture = new Gesture();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +117,58 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         return mathstr;
     }
 
+    CountDownTimer currentCountDownTimer;
+
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+        int gestureListSize = gestureList.size();
+        if (gestureListSize == 0) {
+            gestureList.add(gesture);
+            keepGestureOnScreen(gesture);
+            currentCountDownTimer = createTimeout(gesture);
+            return;
+        }
+        else {
+            Gesture lastGesture = gestureList.get(gestureListSize-1);
+            if (doGesturesOverlap(gesture, lastGesture)) {
+                currentCountDownTimer.cancel();
+                System.out.println("Do overlap");
+                lastGesture.addStroke(gesture.getStrokes().get(0));
+                keepGestureOnScreen(lastGesture);
+                recognizeGesture(lastGesture);
+            }
+            else {
+                gestureList.add(gesture);
+                keepGestureOnScreen(gesture);
+                currentCountDownTimer = createTimeout(gesture);
+            }
+        }
+    }
+
+    private CountDownTimer createTimeout(final Gesture gesture) {
+        //After 1500 milliseconds (1.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
+        CountDownTimer countDownTimer = new CountDownTimer(1500, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                recognizeGesture(gesture);
+            }
+        }.start();
+        return countDownTimer;
+    }
+
+    private boolean doGesturesOverlap(Gesture gesture, Gesture lastGesture) {
+        if (gesture.getBoundingBox().intersect(lastGesture.getBoundingBox())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void recognizeGesture(Gesture gesture) {
         ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
 
         for (int i = 0; i < predictions.size(); i++) {
