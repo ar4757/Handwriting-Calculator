@@ -112,11 +112,9 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         else {
             Gesture lastGesture = gestureList.get(gestureListSize-1);
             if (doGesturesOverlap(gesture, lastGesture)) {
-                currentCountDownTimer.cancel();
                 System.out.println("Do overlap");
                 lastGesture.addStroke(gesture.getStrokes().get(0));
                 keepGestureOnScreen(lastGesture);
-                recognizeGesture(lastGesture);
             }
             else {
                 gestureList.add(gesture);
@@ -128,7 +126,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
     private CountDownTimer createTimeout(final Gesture gesture) {
         //After 1500 milliseconds (1.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
-        CountDownTimer countDownTimer = new CountDownTimer(1500, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
