@@ -13,6 +13,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +55,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     TextView solutionView;   //text view where we show what the user wrote and the solution
     ArrayList<Character> formula = new ArrayList<>();
     ArrayList<Gesture> gestureList = new ArrayList<>();
+    Gesture currentGesture = new Gesture();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,58 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
     }
 
+    CountDownTimer currentCountDownTimer;
+
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+        int gestureListSize = gestureList.size();
+        if (gestureListSize == 0) {
+            gestureList.add(gesture);
+            keepGestureOnScreen(gesture);
+            currentCountDownTimer = createTimeout(gesture);
+            return;
+        }
+        else {
+            Gesture lastGesture = gestureList.get(gestureListSize-1);
+            if (doGesturesOverlap(gesture, lastGesture)) {
+                currentCountDownTimer.cancel();
+                System.out.println("Do overlap");
+                lastGesture.addStroke(gesture.getStrokes().get(0));
+                keepGestureOnScreen(lastGesture);
+                recognizeGesture(lastGesture);
+            }
+            else {
+                gestureList.add(gesture);
+                keepGestureOnScreen(gesture);
+                currentCountDownTimer = createTimeout(gesture);
+            }
+        }
+    }
+
+    private CountDownTimer createTimeout(final Gesture gesture) {
+        //After 1500 milliseconds (1.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
+        CountDownTimer countDownTimer = new CountDownTimer(1500, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                recognizeGesture(gesture);
+            }
+        }.start();
+        return countDownTimer;
+    }
+
+    private boolean doGesturesOverlap(Gesture gesture, Gesture lastGesture) {
+        if (gesture.getBoundingBox().intersect(lastGesture.getBoundingBox())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void recognizeGesture(Gesture gesture) {
         ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
 
         for (int i = 0; i < predictions.size(); i++) {
@@ -122,30 +175,27 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                 if (solutionDisplayed) {
                     clearSolution();
                 }
-                gestureList.add(gesture);
                 mathExpressionString += action;
                 solutionView.setText(mathExpressionString);
 
-//                TextView recognizedText = new TextView(this);
-//                recognizedText.setText(action);
-//                recognizedText.setTextColor(Color.WHITE);
-//                float x = gesture.getBoundingBox().left;
-//                float y = gesture.getBoundingBox().top;
-//                float height = gesture.getBoundingBox().height();
-//                float width = gesture.getBoundingBox().width();
-//                recognizedText.setX(x - 10);
-//                recognizedText.setY(y - 90);
-//                if (width > height) {
-//                    recognizedText.setTextSize(width / 2);
-//                } else {
-//                    recognizedText.setTextSize(height / 2);
-//                }
-//                gOverlay.addView(recognizedText);
-//                mathExpressionString += action;
+                //                TextView recognizedText = new TextView(this);
+                //                recognizedText.setText(action);
+                //                recognizedText.setTextColor(Color.WHITE);
+                //                float x = gesture.getBoundingBox().left;
+                //                float y = gesture.getBoundingBox().top;
+                //                float height = gesture.getBoundingBox().height();
+                //                float width = gesture.getBoundingBox().width();
+                //                recognizedText.setX(x - 10);
+                //                recognizedText.setY(y - 90);
+                //                if (width > height) {
+                //                    recognizedText.setTextSize(width / 2);
+                //                } else {
+                //                    recognizedText.setTextSize(height / 2);
+                //                }
+                //                gOverlay.addView(recognizedText);
+                //                mathExpressionString += action;
             }
         }
-
-
     }
 
     private void keepGestureOnScreen(Gesture gesture) {
