@@ -44,7 +44,6 @@ public class GestureView extends View {
 
 
     public void onDraw(Canvas canvas) {
-
         canvas.drawPath(gesture.toPath(), gesturePaint);
     }
 

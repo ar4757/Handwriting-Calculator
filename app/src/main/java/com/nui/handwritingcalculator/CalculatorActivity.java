@@ -172,8 +172,8 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     // CountDownTimer
     //--------------------
     private CountDownTimer createTimeout(final Gesture gesture) {
-        //After 1500 milliseconds (1.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
-        CountDownTimer countDownTimer = new CountDownTimer(1500, 1000) {
+        //After 1000 milliseconds (1.0 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
+        CountDownTimer countDownTimer = new CountDownTimer(500, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);

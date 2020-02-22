@@ -26,7 +26,5 @@
     <string name="add">Add</string>
     <string name="divide">Divide</string>
     <string name="Practice">Practice</string>
-
     <string name="result">RESULT</string>
-    <string name="stroke_width">5</string>
 </resources>
