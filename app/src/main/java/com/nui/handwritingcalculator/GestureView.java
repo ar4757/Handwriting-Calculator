@@ -9,8 +9,8 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
-import android.view.View;;
-
+import android.view.View;
+import java.util.Stack;
 
 
 public class GestureView extends View {
@@ -19,6 +19,7 @@ public class GestureView extends View {
     Paint gesturePaint;
 
     public GestureView(Context context, Gesture gesture, Boolean undo) {
+
         super(context);
         this.gesture = gesture;
         gesturePaint = new Paint();
@@ -29,11 +30,18 @@ public class GestureView extends View {
         gesturePaint.setStrokeCap(Paint.Cap.ROUND);
         gesturePaint.setStrokeWidth(UIConstants.GESTURE_STROKE_WIDTH);
         gesturePaint.setDither(UIConstants.DITHER_FLAG);
+
+
+        //This is leaving a ghost outline of the gesture on the screen.
+        //May have to pass the gestureStack,clear the canvas then redraw the gestures.
+
         if (undo)
             gesturePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         else
             gesturePaint.setXfermode(null);
     }
+
+
 
     public void onDraw(Canvas canvas) {
 
