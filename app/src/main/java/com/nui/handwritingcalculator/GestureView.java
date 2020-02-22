@@ -6,35 +6,46 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
+import java.util.Stack;
 
 
 public class GestureView extends View {
 
-    private static final int GESTURE_STROKE_WIDTH = 12;
-    private static final boolean GESTURE_RENDERING_ANTIALIAS = true;
-    private static final boolean DITHER_FLAG = true;
-    public static final int DEFAULT_GESTURE_COLOR = Color.WHITE;
-
     Gesture gesture;
     Paint gesturePaint;
 
-    public GestureView(Context context, Gesture gesture) {
+    public GestureView(Context context, Gesture gesture, Boolean undo) {
+
         super(context);
         this.gesture = gesture;
         gesturePaint = new Paint();
-        gesturePaint.setAntiAlias(GESTURE_RENDERING_ANTIALIAS);
-        gesturePaint.setColor(DEFAULT_GESTURE_COLOR);
+        gesturePaint.setAntiAlias(UIConstants.GESTURE_RENDERING_ANTIALIAS);
+        gesturePaint.setColor(UIConstants.DEFAULT_GESTURE_COLOR);
         gesturePaint.setStyle(Paint.Style.STROKE);
         gesturePaint.setStrokeJoin(Paint.Join.ROUND);
         gesturePaint.setStrokeCap(Paint.Cap.ROUND);
-        gesturePaint.setStrokeWidth(GESTURE_STROKE_WIDTH);
-        gesturePaint.setDither(DITHER_FLAG);
+        gesturePaint.setStrokeWidth(UIConstants.GESTURE_STROKE_WIDTH);
+        gesturePaint.setDither(UIConstants.DITHER_FLAG);
+
+
+        //This is leaving a ghost outline of the gesture on the screen.
+        //May have to pass the gestureStack,clear the canvas then redraw the gestures.
+
+        if (undo)
+            gesturePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else
+            gesturePaint.setXfermode(null);
     }
+
+
 
     public void onDraw(Canvas canvas) {
         canvas.drawPath(gesture.toPath(), gesturePaint);
     }
+
 
 }

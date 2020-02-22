@@ -47,13 +47,9 @@
         android:textColor="@color/design_default_color_on_secondary"
         android:textStyle="normal" />
 
-    <com.nui.handwritingcalculator.HandwritingView
-        android:id="@+id/handwriting"
-        android:gestureColor="#FFFFFF"
-        android:uncertainGestureColor="#FFFFFF"
-        android:gestureStrokeType="multiple"
-        android:fadeOffset="0"
-        android:fadeDuration="0"
+
+    <android.gesture.GestureOverlayView
+        android:id="@+id/overlay"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
@@ -61,7 +57,24 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="3dp"
         android:layout_weight="4"
-        android:background="@color/design_default_color_on_secondary" />
+        android:eventsInterceptionEnabled="true"
+        android:gestureStrokeType="multiple"
+        android:fadeDuration="0"
+        android:fadeOffset="0"
+        android:orientation="vertical">
+
+        <com.nui.handwritingcalculator.HandwritingView
+            android:id="@+id/handwriting"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_on_secondary" />
+
+        <!--        <ListView-->
+        <!--            android:id="@android:id/list"-->
+        <!--            android:layout_width="fill_parent"-->
+        <!--            android:layout_height="fill_parent"  />-->
+
+    </android.gesture.GestureOverlayView>
 
     <LinearLayout
         android:id="@+id/calculate"
