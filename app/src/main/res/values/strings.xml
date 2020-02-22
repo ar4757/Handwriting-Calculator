@@ -24,4 +24,7 @@
     <string name="draw_mode">DRAW MODE</string>
     <string name="erase_mode">ERASE MODE</string>
     <string name="result">RESULT</string>
+    <string name="help">Help</string>
+    <string name="practice">Practice</string>
+    <string name="calculator">Calculator</string>
 </resources>

@@ -27,33 +27,39 @@
         android:layout_below="@id/parentToolbar"
         android:layout_margin="10dp">
         <Button
-            android:layout_width="120dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:minHeight="70dp"
+            android:minHeight="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
-            android:text="Calculator"
+            android:background="@drawable/custom_button"
+            android:textColor="#FFFFFF"
+            android:text="@string/calculator"
             android:id="@+id/calculator"
 
             />
 
         <Button
-            android:layout_width= "120dp"
+            android:layout_width= "250dp"
             android:layout_height="wrap_content"
-            android:minHeight="70dp"
+            android:minHeight="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="100dp"
-            android:text="Practice"
+            android:background="@drawable/custom_button"
+            android:textColor="#FFFFFF"
+            android:text="@string/practice"
             android:id="@+id/practice"
             android:layout_below="@+id/calculator"
             />
 
         <Button
-            android:layout_width="120dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:minHeight="70dp"
+            android:minHeight="60dp"
             android:layout_centerHorizontal="true"
-            android:text="Help"
+            android:text="@string/help"
+            android:background="@drawable/custom_button"
+            android:textColor="#FFFFFF"
             android:id="@+id/help"
             android:layout_below="@+id/practice"
             />
