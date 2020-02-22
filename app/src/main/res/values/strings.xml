@@ -27,4 +27,7 @@
     <string name="divide">Divide</string>
     <string name="Practice">Practice</string>
     <string name="result">RESULT</string>
+    <string name="calculator">Calculator</string>
+    <string name="help">Help</string>
+    <string name="practice">Practice</string>
 </resources>
