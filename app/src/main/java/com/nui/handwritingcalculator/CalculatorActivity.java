@@ -137,8 +137,10 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         else {
             //If gestures overlap, add current gesture to previous gesture and recognize it
             //new (overlapping) gesture will only be added as part of the prev gesture which it overlaps
+
+            currentCountDownTimer.cancel();
+
             if (doGesturesOverlap(gesture, lastGesture)) {
-                currentCountDownTimer.cancel();
                 System.out.println("Do overlap");
                 lastGesture.addStroke(gesture.getStrokes().get(0));
                 //replace last two "gestures" with new combined gesture
