@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nui.handwritingcalculator.MainActivity" >
 
-    <item
+ <!--  <item
         android:id="@+id/action_help"
         android:icon="@android:drawable/ic_menu_help"
         android:title="@string/action_help"
         app:showAsAction="ifRoom" />
+-->
+
 </menu>
