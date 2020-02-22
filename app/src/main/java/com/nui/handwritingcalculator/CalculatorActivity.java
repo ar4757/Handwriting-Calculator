@@ -341,12 +341,12 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         drawingMode = findViewById(R.id.mode);
 
         switch (item.getItemId()) {
-            case R.id.action_draw:
+      /*      case R.id.action_draw:
                 // User chose "draw" - only necessary if erase was previously selected
                 drawingMode.setText(getString(R.string.draw_mode));
                 Toast.makeText(getApplicationContext(),"draw selected",Toast.LENGTH_SHORT).show();
                 break;
-
+*/
 //            case R.id.action_erase:
 //                // User chose "erase"
 //                drawingMode.setText(getString(R.string.erase_mode));

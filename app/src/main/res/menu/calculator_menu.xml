@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nui.handwritingcalculator.CalculatorActivity" >
 
-    <item
+<!--    <item
         android:id="@+id/action_draw"
         android:icon="@drawable/write"
         android:title="@string/action_write"
         app:showAsAction="always" />
+-->
 <!--    <item-->
 <!--        android:id="@+id/action_erase"-->
 <!--        android:icon="@drawable/eraser"-->
