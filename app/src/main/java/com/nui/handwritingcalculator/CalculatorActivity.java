@@ -21,17 +21,20 @@ import android.gesture.Gesture;
 import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Stack;
+import com.nui.handwritingcalculator.UIConstants;
 
 import static android.gesture.GestureStore.ORIENTATION_INVARIANT;
 import static android.gesture.GestureStore.ORIENTATION_SENSITIVE;
 import static android.gesture.GestureStore.SEQUENCE_INVARIANT;
+import static com.nui.handwritingcalculator.UIConstants.MAX_STROKE_WIDTH;
+import static com.nui.handwritingcalculator.UIConstants.MIN_STROKE_WIDTH;
 
 public class CalculatorActivity extends AppCompatActivity implements OnGesturePerformedListener {
 
     private GestureLibrary gLibrary;
     private GestureOverlayView gOverlay;
     private HandwritingView hwView;
-    private Gesture lastGesture = null;
+    private CustomGesture lastGesture = null;
 
     //Using a Stack<String> for math Expression allows for more complex expressions such as sqrt,etc.
     private ArrayList<String>  mathExpression = new ArrayList<>();
@@ -40,9 +43,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     TextView drawingMode;
     TextView solutionView;   //text view where we show what the user wrote and the solution
     ArrayList<Character> formula = new ArrayList<>();
-    //   ArrayList<Gesture> gestureList = new ArrayList<>();
-    Stack<Gesture> gestureStack = new Stack<Gesture>();
-//    Stack<Gesture> writeStack = new writeStack<Gesture>();
+    Stack<CustomGesture> gestureStack = new Stack<CustomGesture>();
     CountDownTimer currentCountDownTimer;
 
 
@@ -51,7 +52,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     //*--------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(this, "Calculator", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Calculator", Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
@@ -87,6 +88,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
             }
         });
 
+
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -112,27 +114,22 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         return mathstr;
     }
 
-    //-------------------------------------------------------
-    // saveGesture
-    //    adds gesture to math expression
-    //    pushes gesture onto gesture stack
-    //---------------------------------------------------------
-    private void saveGesture(Gesture gesture) {
-
-    }
 
     // --------------------
     // onGesturePerformed
     //--------------------
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-        gestureStack.push(gesture);
+
+
+        CustomGesture newGesture =   new CustomGesture(gesture, gOverlay.getGestureStrokeWidth());
+        gestureStack.push(newGesture);
         hwView.refresh(gestureStack);
 
         if (lastGesture == null) {
-            System.out.println("onGesturePerformed: no previous gesture");
+//            System.out.println("onGesturePerformed: no previous gesture");
 
-            lastGesture = gesture;
-            currentCountDownTimer = createTimeout(gesture);
+            lastGesture = newGesture;
+            currentCountDownTimer = createTimeout(newGesture);
         }
         else {
             //If gestures overlap, add current gesture to previous gesture and recognize it
@@ -140,26 +137,26 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
             currentCountDownTimer.cancel();
 
-            if (doGesturesOverlap(gesture, lastGesture)) {
-                System.out.println("Do overlap");
-                lastGesture.addStroke(gesture.getStrokes().get(0));
+            if (doGesturesOverlap(newGesture.gesture, lastGesture.gesture)) {
+//                System.out.println("Do overlap");
+                lastGesture.gesture.addStroke(newGesture.gesture.getStrokes().get(0));
                 //replace last two "gestures" with new combined gesture
                 gestureStack.pop();
                 gestureStack.pop();
                 gestureStack.push(lastGesture);
 
-                System.out.println("onGesturePerformed: gestures overlap, recognize gesture");
+//                System.out.println("onGesturePerformed: gestures overlap, recognize gesture");
 
                 recognizeGesture(lastGesture);
                 lastGesture = null; //start again
             }
             else {
                 //recognize the last gesture and start timer on new gesture
-                System.out.println("onGesturePerformed: gestures don't overlap, recognizing last gesture");
+//                System.out.println("onGesturePerformed: gestures don't overlap, recognizing last gesture");
 
                 recognizeGesture(lastGesture);
-                lastGesture = gesture;
-                currentCountDownTimer = createTimeout(gesture);
+                lastGesture = newGesture;
+                currentCountDownTimer = createTimeout(newGesture);
             }
 
         }
@@ -171,7 +168,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     //--------------------
     // CountDownTimer
     //--------------------
-    private CountDownTimer createTimeout(final Gesture gesture) {
+    private CountDownTimer createTimeout(final CustomGesture gesture) {
         //After 500 milliseconds (0.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
         CountDownTimer countDownTimer = new CountDownTimer(500, 1000) {
 
@@ -180,13 +177,13 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
             }
 
             public void onFinish() {
-                System.out.println("time expired: recognize gesture");
+//                System.out.println("time expired: recognize gesture");
                 recognizeGesture(gesture);
                 lastGesture = null;
 
             }
         }.start();
-        System.out.println("start Timer");
+//        System.out.println("start Timer");
 
         return countDownTimer;
     }
@@ -206,13 +203,14 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
     //--------------------
     // recognizeGesture
     //--------------------
-    private void recognizeGesture(Gesture gesture) {
+    private void recognizeGesture(CustomGesture cg) {
+        Gesture gesture = cg.gesture;
         ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
 
-        for (int i = 0; i < predictions.size(); i++) {
-            System.out.println("Prediction: " + predictions.get(i).name + " with score of " + predictions.get(i).score);
-        }
-        System.out.println();
+//        for (int i = 0; i < predictions.size(); i++) {
+//            System.out.println("Prediction: " + predictions.get(i).name + " with score of " + predictions.get(i).score);
+//        }
+//        System.out.println();
         if (predictions.size() > 0 && predictions.get(0).score > 1.0) {
 
             //Find the first (best scoring) gesture with the matching stroke count
@@ -225,7 +223,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                 }
             }
 
-            Toast.makeText(this, action, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, action, Toast.LENGTH_SHORT).show();
             if (!action.equals("invalid")) {
                 //Valid gesture add to math expression
 
@@ -233,19 +231,19 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
                     clearResult();
                 }
 
-                System.out.println("Prediction: valid Gesture");
-
-                System.out.println("Prediction: adding expression");
+//                System.out.println("Prediction: valid Gesture");
+//
+//                System.out.println("Prediction: adding expression");
                 mathExpression.add(action);
 
                 solutionView.setText(getMathString());
 
             }
             else {
-                System.out.println("Prediction: invalid Gesture");
+//                System.out.println("Prediction: invalid Gesture");
                 //remove unrecognized gesture from screen
 
-                gestureStack.remove(gesture);
+                gestureStack.remove(cg);
                 hwView.refresh(gestureStack);
                 //Undo invlaid gesture
                 //keepGestureOnScreen(gesture,true);
@@ -256,13 +254,6 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
 
     }
 
-//    //----------------------*/
-//    // keepGesturesOnScreen */
-//    //----------------------*/
-//    private void keepGestureOnScreen(Gesture gesture, Boolean undo) {
-//        GestureView newGestureView = new GestureView(this, gesture,undo);
-//        gOverlay.addView(newGestureView);
-//    }
 
     private void undo() {
         //undo the last gesture
@@ -327,6 +318,7 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         return true;
     }
 
+
     //-----------------------*/
     // onOptionsItemSelected */
     //-----------------------*/
@@ -337,33 +329,38 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         // as you specify a parent activity in AndroidManifest.xml.
 
         boolean rtn = true;
+        float width = gOverlay.getGestureStrokeWidth();
 
         drawingMode = findViewById(R.id.mode);
 
         switch (item.getItemId()) {
-      /*      case R.id.action_draw:
-                // User chose "draw" - only necessary if erase was previously selected
-                drawingMode.setText(getString(R.string.draw_mode));
-                Toast.makeText(getApplicationContext(),"draw selected",Toast.LENGTH_SHORT).show();
-                break;
-*/
-//            case R.id.action_erase:
-//                // User chose "erase"
-//                drawingMode.setText(getString(R.string.erase_mode));
-//                Toast.makeText(getApplicationContext(),"erase selected",Toast.LENGTH_SHORT).show();
-//                break;
 
             case R.id.action_undo:
                 // User chose "undo" - undo the last gesture
-                //drawingMode.setText(getString(R.string.erase_mode));
-                Toast.makeText(getApplicationContext(),"undo selected",Toast.LENGTH_SHORT).show();
                 undo();
                 break;
 
             case R.id.action_clear:
                 // User chose "clear" - clear canvas and clear formula area
-                Toast.makeText(getApplicationContext(),"clear selected",Toast.LENGTH_SHORT).show();
                 clear();
+                break;
+
+            case R.id.action_inc:
+                // User chose "help" - display help information
+                if (width == MAX_STROKE_WIDTH)
+                    Toast.makeText(getApplicationContext(),"Stroke width is at max value",Toast.LENGTH_SHORT).show();
+                else {
+                    gOverlay.setGestureStrokeWidth(width+1);
+                }
+
+                break;
+            case R.id.action_dec:
+                // User chose "help" - display help information
+                if (width == MIN_STROKE_WIDTH)
+                    Toast.makeText(getApplicationContext(),"Stroke width is at min value",Toast.LENGTH_SHORT).show();
+                else {
+                    gOverlay.setGestureStrokeWidth(width-1);
+                }
                 break;
 
             case R.id.action_help:
