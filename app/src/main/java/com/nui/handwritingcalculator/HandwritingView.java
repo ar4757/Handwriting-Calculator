@@ -27,7 +27,7 @@ public class HandwritingView extends View {
     private Bitmap bitmap;
     private Canvas canvas;
     private Paint bitmapPaint = new Paint(Paint.DITHER_FLAG);
-    private Stack<Gesture> gestureStack = new Stack<Gesture>();
+    private Stack<CustomGesture> gestureStack = new Stack<>();
 
     public HandwritingView(Context context) {
         this(context, null);
@@ -52,7 +52,6 @@ public class HandwritingView extends View {
     }
 
 
-
     @Override
     protected void onSizeChanged(int w, int h , int oldw, int oldh) {
         //Redraw the canvas
@@ -73,8 +72,9 @@ public class HandwritingView extends View {
 Log.d("hw:onDraw ","- canvas.drawColor"+ " STACK SIZE = "+gestureStack.size() );
 
         //draw the strokes on the canvas
-        for (Gesture g : gestureStack) {
-            canvas.drawPath(g.toPath(), gesturePaint);
+        for (CustomGesture g : gestureStack) {
+            gesturePaint.setStrokeWidth(g.width);
+            canvas.drawPath(g.gesture.toPath(), gesturePaint);
 Log.d("hw:onDraw ","- canvas.drawPath");
         }
 

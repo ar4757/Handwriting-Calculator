@@ -16,6 +16,16 @@
 <!--        android:title="@string/action_erase"-->
 <!--        app:showAsAction="always" />-->
     <item
+        android:id="@+id/action_inc"
+        android:icon="@drawable/stroke_inc"
+        android:title="@string/action_inc"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_dec"
+        android:icon="@drawable/stroke_dec"
+        android:title="@string/action_dec"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_undo"
         android:icon="@drawable/undo"
         android:title="@string/action_undo"
