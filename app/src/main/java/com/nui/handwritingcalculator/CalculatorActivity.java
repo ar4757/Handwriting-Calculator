@@ -25,6 +25,7 @@ import java.util.Stack;
 import static android.gesture.GestureStore.ORIENTATION_INVARIANT;
 import static android.gesture.GestureStore.ORIENTATION_SENSITIVE;
 import static android.gesture.GestureStore.SEQUENCE_INVARIANT;
+import org.mariuszgromada.math.mxparser.*;
 
 public class CalculatorActivity extends AppCompatActivity implements OnGesturePerformedListener {
 
@@ -311,7 +312,10 @@ public class CalculatorActivity extends AppCompatActivity implements OnGesturePe
         //send formula for processing then write string to solutionView
         String solution = getMathString();
         clear();
-        solutionView.setText("Solution to " + solution + " goes here");
+        //create an expression
+        Expression e = new Expression(solution);
+
+        solutionView.setText("Solution is: " + e.calculate());
         mathExpression.add(solution);
         resultDisplayed = true;
 
