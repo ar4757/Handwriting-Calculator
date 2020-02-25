@@ -116,6 +116,10 @@ public class PracticeActivity extends AppCompatActivity {
     // checkAnswer        */
     //--------------------*/
     private void checkAnswer() {
+        //Finalizes the last gesture instantly
+        hwView.currentCountDownTimer.onFinish();
+        hwView.currentCountDownTimer.cancel();
+
         //send formula for processing then write string to solutionView
         Double answer = getAnswer();
         String answerString = answer.toString();
