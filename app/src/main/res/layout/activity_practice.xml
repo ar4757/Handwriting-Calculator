@@ -1,69 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".PracticeActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PracticeActivity">
+    >
 
-    <RelativeLayout
-        android:id="@+id/practiceTextScreen"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/practiceProblemsId"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#e0e0e0"
-            android:gravity="center"
-            android:hint="@string/Practice"
-            android:textColor="@color/colorAccent"
-            android:textSize="40sp"></TextView>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/problemHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="0dp"
+
+        android:background="@color/design_default_color_background"
+        android:gravity="start"
+        android:text="@string/problemHeader"
+        android:textAlignment="gravity"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/practiceProblemsId"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="4 x 3"
+        android:background="@color/design_default_color_on_secondary"
+        android:textColor="#FFFFFF"
+        android:textSize="76sp" />
+
+    <TextView
+        android:id="@+id/hwHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/design_default_color_background"
+        android:gravity="start"
+        android:text="@string/answerHeader"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textStyle="normal" />
+
+    <android.gesture.GestureOverlayView
+        android:id="@+id/overlay"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="3"
+        android:eventsInterceptionEnabled="true"
+        android:gestureStrokeType="multiple"
+        android:fadeDuration="0"
+        android:fadeOffset="0"
+        android:orientation="vertical">
+
+        <com.nui.handwritingcalculator.HandwritingView
+            android:id="@+id/handwriting"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_on_secondary" />
+
+
+    </android.gesture.GestureOverlayView>
+
+    <LinearLayout
+        android:id="@+id/check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/practiceGesture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/practiceProblemsId"
-            android:orientation="vertical">
-
-            <android.gesture.GestureOverlayView
-                android:id="@+id/PracticeOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_weight="3"
-                android:eventsInterceptionEnabled="true"
-                android:fadeDuration="0"
-                android:fadeOffset="0"
-                android:gestureStrokeType="multiple"
-                android:orientation="vertical">
-
-                <com.nui.handwritingcalculator.HandwritingView
-                    android:id="@+id/PracticeHandwriting"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/design_default_color_on_secondary" />
-            </android.gesture.GestureOverlayView>
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/practiceSubmitButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_button"
-                android:minHeight="70dp"
-                android:text="@string/submit"
-                android:textColor="#FFFFFF" />
+                android:id="@+id/check_btn"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/checkAnswer" />
 
+            <Button
+                android:id="@+id/show_btn"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/showAnswer" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -32,9 +32,11 @@
         <activity
             android:name=".PracticeActivity"
             android:label="@string/practice_name"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".PracticeSelect"
             >
         </activity>
+
         <activity
             android:name=".PracticeSelect"
             android:label="@string/Practice"
