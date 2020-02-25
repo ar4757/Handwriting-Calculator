@@ -34,4 +34,8 @@
     <string name="calculator">Calculator</string>
     <string name="help">Help</string>
     <string name="practice">Practice</string>
+    <string name="answerHeader">"Write your answer below:"</string>
+    <string name="problemHeader">Solve this problem:</string>
+    <string name="checkAnswer">Check my answer</string>
+    <string name="showAnswer">Show correct answer</string>
 </resources>
