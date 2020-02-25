@@ -46,9 +46,13 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     public Boolean libraryLoaded = false;
     private Boolean gestureResetsText=false;
 
+    //If we want to write the math expression to a text area,
+    //call writeExpressionToTextArea
+    private Boolean showText = false;
+    TextView textOutputView;
+
     private ArrayList<String>  mathExpression = new ArrayList<>();
 
-    TextView textOutputView;
 
     public HandwritingView(Context context) {
         this(context, null);
@@ -64,15 +68,6 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 
         if (gLibrary.load()) {
             libraryLoaded = true;
-
-            //Gesture Overlay
-//            gOverlay = (GestureOverlayView) findViewById(R.id.overlay);
-//            gOverlay.setGestureStrokeWidth(UIConstants.GESTURE_STROKE_WIDTH);
-//            gOverlay.setGestureColor(UIConstants.DEFAULT_GESTURE_COLOR);
-//            gOverlay.setUncertainGestureColor((UIConstants.UNRECOGNIZED_GESTURE_COLOR));
-//            gOverlay.setGestureStrokeAngleThreshold(90.0f);
-//            gOverlay.addOnGesturePerformedListener(this);
-
 
             //Set up the gesture paint values
             gesturePaint = new Paint();
@@ -99,7 +94,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         gOverlay.setGestureStrokeAngleThreshold(90.0f);
         gOverlay.addOnGesturePerformedListener(this);
     }
-    public void setTextArea (TextView tv) {
+    public void writeGestureStringToTextArea (TextView tv) {
+        showText = true;
         textOutputView = tv;
     }
 
@@ -240,7 +236,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 //
 //                System.out.println("Prediction: adding expression");
                 gString.add(action);
-                textOutputView.setText(getTextString());
+                if (showText)
+                     textOutputView.setText(getTextString());
 
             }
             else {

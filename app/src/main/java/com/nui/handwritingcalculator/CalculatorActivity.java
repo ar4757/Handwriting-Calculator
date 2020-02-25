@@ -30,7 +30,7 @@ import org.mariuszgromada.math.mxparser.*;
 import static com.nui.handwritingcalculator.UIConstants.MAX_STROKE_WIDTH;
 import static com.nui.handwritingcalculator.UIConstants.MIN_STROKE_WIDTH;
 
-public class CalculatorActivity extends AppCompatActivity { // implements OnGesturePerformedListener {
+public class CalculatorActivity extends AppCompatActivity {
 
     private HandwritingView hwView;
 
@@ -72,7 +72,7 @@ public class CalculatorActivity extends AppCompatActivity { // implements OnGest
 
         hwView =  findViewById(R.id.handwriting);
         TextView tv = findViewById(R.id.solution);
-        hwView.setTextArea(tv);
+        hwView.writeGestureStringToTextArea (tv);
         if (!hwView.libraryLoaded) {
             Toast.makeText(this, "Gesture library did not load", Toast.LENGTH_SHORT).show();
             finish();
@@ -83,7 +83,6 @@ public class CalculatorActivity extends AppCompatActivity { // implements OnGest
 
         }
     }
-
 
 
 

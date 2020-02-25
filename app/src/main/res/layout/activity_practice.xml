@@ -105,14 +105,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/check_btn"
+                android:id="@+id/checkBtn"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text="@string/checkAnswer" />
 
             <Button
-                android:id="@+id/show_btn"
+                android:id="@+id/showBtn"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
