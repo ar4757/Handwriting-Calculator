@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/custom_background"
     android:orientation="vertical"
-    tools:context=".PracticeActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    >
+    tools:context=".PracticeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/custom_background"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -50,9 +48,9 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="3dp"
         android:layout_weight="1"
-        android:textAlignment="center"
-        android:text="4 x 3"
         android:background="@color/design_default_color_on_secondary"
+        android:text="4 x 3"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="76sp" />
 
@@ -79,9 +77,9 @@
         android:layout_marginBottom="3dp"
         android:layout_weight="3"
         android:eventsInterceptionEnabled="true"
-        android:gestureStrokeType="multiple"
         android:fadeDuration="0"
         android:fadeOffset="0"
+        android:gestureStrokeType="multiple"
         android:orientation="vertical">
 
         <com.nui.handwritingcalculator.HandwritingView
