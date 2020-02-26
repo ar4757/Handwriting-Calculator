@@ -8,10 +8,6 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 public class PracticeSelect extends AppCompatActivity {
 
@@ -21,12 +17,22 @@ public class PracticeSelect extends AppCompatActivity {
     CheckBox subCheckbox;
     Button submitButton;
 
+    Boolean multi;
+    Boolean divide;
+    Boolean add;
+    Boolean sub;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.practice_select);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        multi=false;
+        divide=false;
+        add=false;
+        sub=false;
 
         //CheckBox variable added
         multiplyCheckbox = findViewById(R.id.multiply_checkbox);
@@ -40,6 +46,7 @@ public class PracticeSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(multiplyCheckbox.isChecked()){
+                    multi=true;
                     Toast.makeText(getApplicationContext(),"Multi Checked",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -49,6 +56,7 @@ public class PracticeSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(divideCheckbox.isChecked()){
+                    divide=true;
                     Toast.makeText(getApplicationContext(),"divide Checked",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -58,6 +66,7 @@ public class PracticeSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(addCheckbox.isChecked()){
+                    add=true;
                     Toast.makeText(getApplicationContext(),"add Checked",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -67,6 +76,7 @@ public class PracticeSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(subCheckbox.isChecked()){
+                    sub=true;
                     Toast.makeText(getApplicationContext(),"Subtract Checked",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -76,6 +86,10 @@ public class PracticeSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PracticeSelect.this, PracticeActivity.class);
+                i.putExtra("multiplyBox",multi);
+                i.putExtra("divideBox",divide);
+                i.putExtra("addBox",add);
+                i.putExtra("subBox",sub);
                 startActivity(i);
             }
         });
