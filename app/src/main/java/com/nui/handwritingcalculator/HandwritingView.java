@@ -40,7 +40,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     private GestureOverlayView gOverlay;
     private HandwritingView hwView;
     private CustomGesture lastGesture = null;
-    ArrayList<String> gString = new ArrayList<>();  //recognized gestures in a string
+    ArrayList<CustomGesture> gestureList = new ArrayList<>();  //recognized gestures in a string
     Stack<CustomGesture> gestureStack = new Stack<CustomGesture>();
     CountDownTimer currentCountDownTimer;
     public boolean isCurrentCountDownTimerRunning = false;
@@ -107,8 +107,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     public String getTextString() {
         String tstr = "";
 
-        for (String s : gString) {
-            tstr += s;
+        for (CustomGesture g : gestureList) {
+            tstr += g.action;
 
         }
         return tstr;
@@ -237,7 +237,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 //                System.out.println("Prediction: valid Gesture");
 //
 //                System.out.println("Prediction: adding expression");
-                gString.add(action);
+                insertGestureBasedOnPosition(gesture, action);
                 if (showText)
                      textOutputView.setText(getTextString());
 
@@ -254,6 +254,32 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         }
     }
 
+    private void insertGestureBasedOnPosition(Gesture gesture, String action) {
+        float xVal = gesture.getBoundingBox().left;
+        if (gestureList.isEmpty()) {
+            CustomGesture customGesture = new CustomGesture(gesture, action);
+            gestureList.add(customGesture);
+        }
+        else {
+            for (int i = 0; i < gestureList.size(); i++) {
+                float currentXVal = 0;
+                if (gestureList.get(i).gesture != null) {
+                    currentXVal = gestureList.get(i).gesture.getBoundingBox().left;
+                }
+                System.out.println("   xVal: " + xVal + "  CurrentXVal: " + currentXVal);
+                if (xVal < currentXVal) {
+                    CustomGesture customGesture = new CustomGesture(gesture, action);
+                    gestureList.add(i, customGesture);
+                    break;
+                }
+                else if (i == gestureList.size() - 1) {
+                    CustomGesture customGesture = new CustomGesture(gesture, action);
+                    gestureList.add(customGesture);
+                    break;
+                }
+            }
+        }
+    }
     public void finalizeGesture() {
         if (isCurrentCountDownTimerRunning == true) {
             currentCountDownTimer.onFinish();
@@ -272,14 +298,15 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     // setText            */
     //--------------------*/
     public void setText(String s) {
-        gString.add(s);
+        CustomGesture temp = new CustomGesture(s);
+        gestureList.add(temp);
     } //clearText
 
     //--------------------*/
     // clearText          */
     //--------------------*/
     public void clearText() {
-        gString.clear();
+        gestureList.clear();
     } //clearText
 
     //--------------------*/
@@ -305,7 +332,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             i--;
             gestureStack.pop();
             refresh();
-            gString.remove(i);
+            gestureList.remove(i);
         }
         //need to remove last gesture from screen
 

@@ -121,7 +121,7 @@ public class CalculatorActivity extends AppCompatActivity {
         solution = value.toString();
 
         solutionView.setText("Solution is: " + solution);
-        hwView.setText (solution);
+        hwView.setText(solution);
         hwView.onGestureResetText();
 
     }
