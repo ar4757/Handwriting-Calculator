@@ -261,6 +261,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             gestureList.add(customGesture);
         }
         else {
+            //Find the leftmost position (x coordinate) at which to insert the gesture
             for (int i = 0; i < gestureList.size(); i++) {
                 float currentXVal = 0;
                 if (gestureList.get(i).gesture != null) {
@@ -268,11 +269,23 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 }
                 System.out.println("   xVal: " + xVal + "  CurrentXVal: " + currentXVal);
                 if (xVal < currentXVal) {
+                    //Exponent check
+                    Gesture number = gestureList.get(i).gesture;
+                    System.out.println("G height: " + gesture.getBoundingBox().height() + "   N height: " + number.getBoundingBox().height());
+                    if (gesture.getBoundingBox().height() < number.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(number.getBoundingBox().right - 20, number.getBoundingBox().top - 60, number.getBoundingBox().right + 60, number.getBoundingBox().bottom - number.getBoundingBox().height()/2)) {
+                        action = "^" + action;
+                    }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     gestureList.add(i, customGesture);
                     break;
                 }
                 else if (i == gestureList.size() - 1) {
+                    //Exponent check
+                    Gesture number = gestureList.get(i).gesture;
+                    System.out.println("G height: " + gesture.getBoundingBox().height() + "   N height: " + number.getBoundingBox().height());
+                    if (gesture.getBoundingBox().height() < number.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(number.getBoundingBox().right - 20, number.getBoundingBox().top - 60, number.getBoundingBox().right + 60, number.getBoundingBox().bottom - number.getBoundingBox().height()/2)) {
+                        action = "^" + action;
+                    }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     gestureList.add(customGesture);
                     break;
