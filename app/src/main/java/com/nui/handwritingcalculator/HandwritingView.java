@@ -155,6 +155,20 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 recognizeGesture(lastGesture);
                 lastGesture = null; //start again
             }
+            //Case where user is drawing an 'i'
+            else if (newGesture.gesture.getBoundingBox().centerX() - lastGesture.gesture.getBoundingBox().centerX() < 10 && newGesture.width < 10 && lastGesture.width < 10) {
+                System.out.println("i");
+                lastGesture.gesture.addStroke(newGesture.gesture.getStrokes().get(0));
+                //replace last two "gestures" with new combined gesture
+                gestureStack.pop();
+                gestureStack.pop();
+                gestureStack.push(lastGesture);
+
+//                System.out.println("onGesturePerformed: gestures overlap, recognize gesture");
+
+                recognizeGesture(lastGesture);
+                lastGesture = null; //start again
+            }
             else {
                 //recognize the last gesture and start timer on new gesture
 //                System.out.println("onGesturePerformed: gestures don't overlap, recognizing last gesture");
@@ -240,6 +254,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 //
 //                System.out.println("Prediction: adding expression");
                 insertGestureBasedOnPosition(gesture, action);
+                cleanupMiscrecognizedGestures();
                 if (showText)
                      textOutputView.setText(getTextString());
 
@@ -253,6 +268,34 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 //Undo invlaid gesture
                 //keepGestureOnScreen(gesture,true);
             }
+        }
+    }
+
+    private void cleanupMiscrecognizedGestures() {
+        for (int i = 0; i < gestureList.size(); i++) {
+            CustomGesture previous = null;
+            CustomGesture current = null;
+            CustomGesture next = null;
+            if (i > 0) {
+                previous = gestureList.get(i - 1);
+                current = gestureList.get(i);
+            }
+            if (i < gestureList.size() - 1) {
+                next = gestureList.get(i + 1);
+            }
+            if (previous != null && next != null && previous.action.equals("t") && next.action.equals("n")) {
+                current.action = "a";
+            }
+            if (previous != null && next != null && previous.action.equals("s") && next.action.equals("n")) {
+                current.action = "i";
+            }
+            if (previous != null && next != null && previous.action.equals("c") && next.action.equals("s")) {
+                current.action = "o";
+            }
+            if (previous != null && next != null && current.action.equals("i") && next.action.equals("n")) {
+                previous.action = "s";
+            }
+
         }
     }
 
