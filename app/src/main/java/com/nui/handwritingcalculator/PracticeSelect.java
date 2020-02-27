@@ -1,11 +1,17 @@
 package com.nui.handwritingcalculator;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,11 +29,24 @@ public class PracticeSelect extends AppCompatActivity {
     Boolean sub;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.practice_select);
+
+      //  Toolbar toolbar = findViewById(R.id.toolbar);
+       // toolbar.setTitleTextColor(getResources().getColor(R.color.design_default_color_on_secondary));
+
+      //  setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.custom_background));
+        getSupportActionBar().setTitle("");
 
         multi=false;
         divide=false;
