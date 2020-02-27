@@ -178,8 +178,7 @@ public class PracticeActivity extends AppCompatActivity {
     //--------------------*/
     private void checkAnswer() {
         //Finalizes the last gesture instantly
-        hwView.currentCountDownTimer.onFinish();
-        hwView.currentCountDownTimer.cancel();
+        hwView.finalizeGesture();
 
         //send formula for processing then write string to solutionView
         Double answer = getAnswer();
@@ -187,16 +186,25 @@ public class PracticeActivity extends AppCompatActivity {
 
         String userString = hwView.getTextString();
         Double userAnswer = (Double) 0.0;
+        boolean validNumber = true;
         if (userString != "") {
-            userAnswer = Double.valueOf(userString);
+            try {
+                userAnswer = Double.valueOf(userString);
+            }
+            catch (Exception e) {
+                validNumber = false;
+            }
         }
         //Should probably show some kind of popup here
 
-        if (userAnswer == answer) {
+        if (validNumber && userAnswer == answer) {
             Toast.makeText(this, "Your answer of " + userString + " is correct!", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else if (validNumber && userAnswer != answer) {
             Toast.makeText(this, "Your answer of " + userString + " is not correct!", Toast.LENGTH_SHORT).show();
-
+        }
+        else if (validNumber == false) {
+            Toast.makeText(this, "Your answer of " + userString + " contains invalid symbols (numbers only)!", Toast.LENGTH_SHORT).show();
         }
         clear();
 

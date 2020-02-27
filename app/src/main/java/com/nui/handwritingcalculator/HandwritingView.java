@@ -43,6 +43,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     ArrayList<String> gString = new ArrayList<>();  //recognized gestures in a string
     Stack<CustomGesture> gestureStack = new Stack<CustomGesture>();
     CountDownTimer currentCountDownTimer;
+    public boolean isCurrentCountDownTimerRunning = false;
     public Boolean libraryLoaded = false;
     private Boolean gestureResetsText=false;
 
@@ -149,6 +150,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             //new (overlapping) gesture will only be added as part of the prev gesture which it overlaps
 
             currentCountDownTimer.cancel();
+            isCurrentCountDownTimerRunning = false;
 
             if (doGesturesOverlap(newGesture.gesture, lastGesture.gesture)) {
 //                System.out.println("Do overlap");
@@ -193,11 +195,11 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 //                System.out.println("time expired: recognize gesture");
                 recognizeGesture(gesture);
                 lastGesture = null;
-
+                isCurrentCountDownTimerRunning = false;
             }
         }.start();
 //        System.out.println("start Timer");
-
+        isCurrentCountDownTimerRunning = true;
         return countDownTimer;
     }
 
@@ -261,6 +263,13 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 //Undo invlaid gesture
                 //keepGestureOnScreen(gesture,true);
             }
+        }
+    }
+
+    public void finalizeGesture() {
+        if (isCurrentCountDownTimerRunning == true) {
+            currentCountDownTimer.onFinish();
+            currentCountDownTimer.cancel();
         }
     }
 
