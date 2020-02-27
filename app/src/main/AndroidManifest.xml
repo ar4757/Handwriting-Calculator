@@ -25,7 +25,6 @@
         <activity
             android:name=".CalculatorActivity"
             android:label="Calculator Mode"
-
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity" />
 

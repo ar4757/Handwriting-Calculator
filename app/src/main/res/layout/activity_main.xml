@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_secondary"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/parentToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/custom_background"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -24,21 +26,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/parentToolbar"
-        android:layout_margin="10dp">
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/design_default_color_on_secondary">
 
         <Button
             android:id="@+id/calculator"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/custom_button"
             android:minHeight="60dp"
             android:text="@string/calculator"
-            android:textColor="#FFFFFF"
 
-            />
+            android:textColor="@color/design_default_color_on_secondary" />
 
         <Button
             android:id="@+id/practice"
@@ -46,11 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/calculator"
             android:layout_centerHorizontal="true"
-            android:layout_marginVertical="100dp"
+            android:layout_marginVertical="70dp"
             android:background="@drawable/custom_button"
             android:minHeight="60dp"
             android:text="@string/practice"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/design_default_color_on_secondary" />
 
         <Button
             android:id="@+id/help"
@@ -61,7 +67,7 @@
             android:background="@drawable/custom_button"
             android:minHeight="60dp"
             android:text="@string/help"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/design_default_color_on_secondary" />
     </RelativeLayout>
 
 </RelativeLayout>
