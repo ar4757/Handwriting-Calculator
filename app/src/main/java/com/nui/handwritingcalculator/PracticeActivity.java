@@ -181,11 +181,11 @@ public class PracticeActivity extends AppCompatActivity {
         hwView.finalizeGesture();
 
         //send formula for processing then write string to solutionView
-        Double answer = getAnswer();
-        String answerString = answer.toString();
+        double answer = getAnswer();
+        String answerString = Double.toString(answer);
 
         String userString = hwView.getTextString();
-        Double userAnswer = (Double) 0.0;
+        double userAnswer = 0.0;
         boolean validNumber = true;
         if (userString != "") {
             try {
@@ -214,9 +214,9 @@ public class PracticeActivity extends AppCompatActivity {
     // showAnswer        */
     //--------------------*/
     private void showAnswer() {
-        Double value = getAnswer();
+        double value = getAnswer();
 
-        Toast.makeText(this, "The correct answer = " + value.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "The correct answer = " + value, Toast.LENGTH_SHORT).show();
 
     }
 

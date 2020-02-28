@@ -138,8 +138,19 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         String tstr = "";
 
         for (CustomGesture g : gestureList) {
-            tstr += g.action;
-
+          switch (g.action) {
+              case "x":
+              case "X":
+              case "-":
+              case "/":
+              case "+": {
+                  tstr += " " + g.action + " ";
+                  break;
+              }
+              default: {
+                  tstr += g.action;
+              }
+          }
         }
         return tstr;
     }
