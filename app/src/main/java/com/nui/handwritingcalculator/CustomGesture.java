@@ -7,12 +7,14 @@ import android.gesture.Gesture;
         float width;
         Gesture gesture;
         String action;
+        boolean doesIntersect;
 
 
          CustomGesture(Gesture g, float strokeWidth) {
             this.gesture = g;
             this.width = strokeWidth;
             this.action = "";
+            this.doesIntersect = false;
         }
 
         CustomGesture(String action) {
@@ -22,6 +24,7 @@ import android.gesture.Gesture;
         CustomGesture(Gesture g, String action) {
              this.gesture = g;
              this.action = action;
+             this.doesIntersect = false;
         }
 
 

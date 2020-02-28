@@ -16,15 +16,19 @@ import android.graphics.Path;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
 import static android.gesture.GestureStore.SEQUENCE_INVARIANT;
 import static java.sql.DriverManager.println;
+
 
 
 public class HandwritingView extends View implements GestureOverlayView.OnGesturePerformedListener {
@@ -96,6 +100,30 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         gOverlay.setUncertainGestureColor((UIConstants.UNRECOGNIZED_GESTURE_COLOR));
         gOverlay.setGestureStrokeAngleThreshold(90.0f);
         gOverlay.addOnGesturePerformedListener(this);
+
+        //Since GestureOverlayView does not allow you to input a single tap as a drawable gesture, we can do so manually (for dotting the 'i')
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                System.out.println("dot the i");
+                Gesture dotGesture = new Gesture();
+                ArrayList<GesturePoint> dotPoints = new ArrayList();
+                dotPoints.add(new GesturePoint(e.getX(), e.getY(), 0));
+                dotPoints.add(new GesturePoint(e.getX() + 10, e.getY() + 10, 10));
+                GestureStroke dotStroke = new GestureStroke(dotPoints);
+                dotGesture.addStroke(dotStroke);
+                onGesturePerformed(gOverlay, dotGesture);
+                return true;
+            }
+        });
+        gOverlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
     }
     public void writeGestureStringToTextArea (TextView tv) {
         showText = true;
@@ -145,6 +173,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             if (doGesturesOverlap(newGesture.gesture, lastGesture.gesture)) {
 //                System.out.println("Do overlap");
                 lastGesture.gesture.addStroke(newGesture.gesture.getStrokes().get(0));
+                lastGesture.doesIntersect = true;
                 //replace last two "gestures" with new combined gesture
                 gestureStack.pop();
                 gestureStack.pop();
@@ -156,7 +185,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 lastGesture = null; //start again
             }
             //Case where user is drawing an 'i'
-            else if (newGesture.gesture.getBoundingBox().centerX() - lastGesture.gesture.getBoundingBox().centerX() < 10 && newGesture.width < 10 && lastGesture.width < 10) {
+            else if (Math.abs(newGesture.gesture.getBoundingBox().centerX() - lastGesture.gesture.getBoundingBox().centerX()) < 10 && newGesture.width < 10 && lastGesture.width < 10) {
                 System.out.println("i");
                 lastGesture.gesture.addStroke(newGesture.gesture.getStrokes().get(0));
                 //replace last two "gestures" with new combined gesture
@@ -188,8 +217,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     // CountDownTimer
     //--------------------
     private CountDownTimer createTimeout(final CustomGesture gesture) {
-        //After 500 milliseconds (0.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
-        CountDownTimer countDownTimer = new CountDownTimer(500, 1000) {
+        //After GESTURE_TIMEOUT, currently 500 milliseconds (0.5 seconds), recognize the gesture as-is, i.e. stop waiting for multi-stroke
+        CountDownTimer countDownTimer = new CountDownTimer(UIConstants.GESTURE_TIMEOUT, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -226,16 +255,20 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         Gesture gesture = cg.gesture;
         ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
 
-//        for (int i = 0; i < predictions.size(); i++) {
-//            System.out.println("Prediction: " + predictions.get(i).name + " with score of " + predictions.get(i).score);
-//        }
-//        System.out.println();
+        for (int i = 0; i < predictions.size(); i++) {
+            System.out.println("Prediction: " + predictions.get(i).name + " with score of " + predictions.get(i).score);
+        }
+        System.out.println();
         if (predictions.size() > 0 && predictions.get(0).score > 1.0) {
 
             //Find the first (best scoring) gesture with the matching stroke count
             String action = "invalid";
             for (int i = 0; i < predictions.size(); i++) {
                 String temp_action = predictions.get(i).name;
+                //Skip 'i' if the gesture definitely has an intersection
+                if (cg.doesIntersect == true && temp_action.equals("i")) {
+                    continue;
+                }
                 if (gLibrary.getGestures(temp_action).get(0).getStrokesCount() == gesture.getStrokesCount()) {
                     action = temp_action;
                     break;
@@ -254,7 +287,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 //
 //                System.out.println("Prediction: adding expression");
                 insertGestureBasedOnPosition(gesture, action);
-                cleanupMiscrecognizedGestures();
+                cleanupMisrecognizedGestures();
                 if (showText)
                      textOutputView.setText(getTextString());
 
@@ -271,7 +304,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         }
     }
 
-    private void cleanupMiscrecognizedGestures() {
+    private void cleanupMisrecognizedGestures() {
         for (int i = 0; i < gestureList.size(); i++) {
             CustomGesture previous = null;
             CustomGesture current = null;
