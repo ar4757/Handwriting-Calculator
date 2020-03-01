@@ -92,15 +92,15 @@ public class PracticeActivity extends AppCompatActivity {
     }
 
     private int singlenumbergeneator() {
-        return rand.nextInt(10);
+        return rand.nextInt(10)+1;
     }
 
     private int Doublenumbergeneator() {
-        return rand.nextInt(100);
+        return rand.nextInt(100)+1;
     }
 
     private int triplenumbergeneator() {
-        return rand.nextInt(1000);
+        return rand.nextInt(1000)+1;
     }
 
     private void generateProblem() {
@@ -111,10 +111,10 @@ public class PracticeActivity extends AppCompatActivity {
             }
         }
         int num1 = 0, num2 = 1;
-        if (countproblems < 15) {
+        if (countproblems < 8) {
             num1 = singlenumbergeneator();
             num2 = singlenumbergeneator();
-        } else if (countproblems < 30) {
+        } else if (countproblems < 16) {
             num1 = Doublenumbergeneator();
             num2 = Doublenumbergeneator();
         } else {
@@ -128,9 +128,6 @@ public class PracticeActivity extends AppCompatActivity {
                 answer=(double)num1*num2;
                 break;
             case 1:
-                if(num2==0){
-                    num2=3;
-                }
                 practiceProblemView.setText(num1+" / "+num2);
                 answer=(double)num1/num2;
                 break;

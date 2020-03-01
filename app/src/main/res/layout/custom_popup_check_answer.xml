@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/design_default_color_on_primary"
-        android:textSize="45dp"
+        android:textSize="45sp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/design_default_color_on_primary"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="5dp"
@@ -40,29 +40,41 @@
         android:gravity="fill_horizontal"
 
         >
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/practice_more_or_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@drawable/custom_button"
+                android:layout_centerHorizontal="true"
+                android:minHeight="60dp"
+                android:textColor="@color/design_default_color_on_secondary" />
 
-    <Button
-        android:id="@+id/practice_more_or_retry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_button"
-        android:minHeight="60dp"
-        android:layout_marginRight="70dp"
-        android:textColor="@color/design_default_color_on_secondary" />
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/exit_practice_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/custom_button"
-            android:minHeight="60dp"
-            android:layout_marginLeft="70dp"
-            android:text="@string/exit_practice_mode"
-            android:textColor="@color/design_default_color_on_secondary" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/exit_practice_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_button"
+                android:minHeight="60dp"
+                android:text="@string/exit_practice_mode"
+                android:textColor="@color/design_default_color_on_secondary" />
+        </RelativeLayout>
+
+
+
+
     </LinearLayout>
 
 
