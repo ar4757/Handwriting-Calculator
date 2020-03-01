@@ -38,4 +38,6 @@
     <string name="problemHeader">Solve this problem:</string>
     <string name="checkAnswer">Check my answer</string>
     <string name="showAnswer">Show correct answer</string>
+    <string name ="practice_more">NULL</string>
+    <string name = "exit_practice_mode">EXIT</string>
 </resources>
