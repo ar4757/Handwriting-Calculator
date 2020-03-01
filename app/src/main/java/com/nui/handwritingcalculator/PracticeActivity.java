@@ -4,14 +4,17 @@ import android.gesture.GestureOverlayView;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -198,16 +201,93 @@ public class PracticeActivity extends AppCompatActivity {
         //Should probably show some kind of popup here
 
         if (validNumber && userAnswer == answer) {
-            Toast.makeText(this, "Your answer of " + userString + " is correct!", Toast.LENGTH_SHORT).show();
+            String title = "CORRECT!";
+            String message = "Your answer of " + userString + " is correct!";
+            customPopUp(title, message);
         }
         else if (validNumber && userAnswer != answer) {
-            Toast.makeText(this, "Your answer of " + userString + " is not correct!", Toast.LENGTH_SHORT).show();
+            String title = "WRONG!";
+            String message = "Your answer of " + userString + " is not correct! Please retry!";
+            customPopUp(title,message);
         }
         else if (validNumber == false) {
-            Toast.makeText(this, "Your answer of " + userString + " contains invalid symbols (numbers only)!", Toast.LENGTH_SHORT).show();
+            String title = "ERROR!";
+            String message = "Your answer of " + userString + " contains invalid symbols (numbers only)!";
+            customPopUp(title, message);
         }
         clear();
 
+    }
+
+
+    private void customPopUp(String title, String message) {
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        final View dialogView = LayoutInflater.from(this).inflate(R.layout.custom_popup_check_answer, viewGroup, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.create();
+
+        TextView header = (TextView) dialogView.findViewById(R.id.text_heading);
+        header.setText(title);
+        TextView description = (TextView) dialogView.findViewById(R.id.text_description);
+        description.setText(message);
+
+        Button btn1 = (Button) dialogView.findViewById(R.id.practice_more_or_retry);
+        Button btn2 = (Button) dialogView.findViewById(R.id.exit_practice_mode);
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //exit the practice mode
+                alertDialog.dismiss();
+                finish();
+            }
+        });
+
+        switch (title){
+            case "CORRECT!":
+                btn1.setText("PRACTICE MORE");
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        generateProblem();
+                    }
+                });
+                break;
+
+            case "WRONG!":
+                btn1.setText("RETRY");
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                break;
+            case "ANSWER":
+                btn1.setText("TRY PROBLEM");
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });                break;
+            default:
+                //btn.setText("RETRY")
+                btn1.setText("DISMISS ERROR");
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+        }
+
+
+
+
+
+
+
+
+        alertDialog.show();
     }
 
     //--------------------*/
@@ -216,7 +296,9 @@ public class PracticeActivity extends AppCompatActivity {
     private void showAnswer() {
         double value = getAnswer();
 
-        Toast.makeText(this, "The correct answer = " + value, Toast.LENGTH_SHORT).show();
+        String title = "ANSWER";
+        String message = "The correct answer = " + value;
+        customPopUp(title,message);
 
     }
 
