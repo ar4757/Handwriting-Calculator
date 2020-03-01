@@ -11,5 +11,5 @@ import android.graphics.Color;
     static final int MIN_STROKE_WIDTH = 2;
     static final int MAX_STROKE_WIDTH = 20;
     static final int BG_COLOR = Color.BLACK;
-
+    static final int GESTURE_TIMEOUT = 500;
 }
