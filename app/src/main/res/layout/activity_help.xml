@@ -44,10 +44,8 @@
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/ScrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="675dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,18 +54,20 @@
 
             <TextView
                 android:id="@+id/Calculator_Help"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/design_default_color_on_secondary"
-                android:text="@string/long_text"
-                android:textColor="@color/design_default_color_on_primary" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/long_text" />
 
             <TextView
                 android:id="@+id/Practice_Help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/design_default_color_on_secondary" />
+                android:text="@string/long_text"
+                />
+
+
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>
