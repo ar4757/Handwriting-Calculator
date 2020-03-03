@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/calc_help_button"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:textColor="@color/design_default_color_on_primary" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/practice_help_button"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -62,8 +63,7 @@
                 android:id="@+id/Practice_Help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/long_text"
-                />
+                android:text="@string/long_text" />
 
 
         </LinearLayout>
