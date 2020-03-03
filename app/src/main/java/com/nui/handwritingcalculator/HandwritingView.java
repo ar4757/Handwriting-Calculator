@@ -322,8 +322,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             CustomGesture next = null;
             if (i > 0) {
                 previous = gestureList.get(i - 1);
-                current = gestureList.get(i);
             }
+            current = gestureList.get(i);
             if (i < gestureList.size() - 1) {
                 next = gestureList.get(i + 1);
             }
@@ -336,10 +336,21 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             if (previous != null && next != null && previous.action.equals("c") && next.action.equals("s")) {
                 current.action = "o";
             }
+            if (previous != null && next != null && previous.action.equals("c") && current.action.equals("o")) {
+                next.action = "s";
+            }
             if (previous != null && next != null && current.action.equals("i") && next.action.equals("n")) {
                 previous.action = "s";
             }
-
+            if (current != null && current.action.equals("s") && ((previous != null && !previous.action.equals("o")) || ((previous != null && !previous.action.equals("o") || (previous == null)) && next != null && !next.action.equals("i")))) {
+                current.action = "5";
+            }
+            if (previous != null && next != null && current.action.equals("o") && (!previous.action.equals("c") || !next.action.equals("s"))) {
+                current.action = "0";
+            }
+            if (previous != null && next != null && current.action.equals("a") && next.action.equals("n")) {
+                previous.action = "t";
+            }
         }
     }
 
@@ -473,6 +484,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     public void clear() {
         gestureStack.clear();
         lastGesture = null;
+        currentCountDownTimer.cancel();
         clearText();  //created method in case we need to do other stuff
         refresh();
     } //clear

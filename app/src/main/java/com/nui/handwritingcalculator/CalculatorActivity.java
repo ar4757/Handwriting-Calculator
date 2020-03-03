@@ -114,6 +114,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private void calculate() {
         //send formula for processing then write string to solutionView
         String solution = hwView.getTextString();
+        solution = solution.replace('x', '*');
         clear();
         //create an expression
         Expression e = new Expression(solution);
