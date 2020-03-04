@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -70,6 +71,20 @@ public class help extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.home:
+                onBackPressed();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void focusOnView(final TextView t){
         new Handler().post(new Runnable() {
             @Override
@@ -78,5 +93,7 @@ public class help extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
