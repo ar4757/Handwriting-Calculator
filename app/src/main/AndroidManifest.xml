@@ -28,16 +28,26 @@
             android:name=".PracticeActivity"
             android:label="@string/practice_name"
             android:parentActivityName=".PracticeSelect"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PracticeSelect"
             android:label="@string/Practice"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".help"
-            android:label ="Help"
+            android:label="Help"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" > </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".help_calculator"
+            android:label="Help"
+            android:parentActivityName=".CalculatorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".help_practice"
+            android:label="Help"
+            android:parentActivityName=".CalculatorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

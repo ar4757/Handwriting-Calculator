@@ -357,8 +357,7 @@ public class PracticeActivity extends AppCompatActivity {
 
             case R.id.action_help:
                 // User chose "help" - display help information
-                Intent i = new Intent(PracticeActivity.this, help.class);
-             //  i.putExtra("practice", true);
+                Intent i = new Intent(PracticeActivity.this, help_practice.class);
                startActivity(i);
                 break;
 

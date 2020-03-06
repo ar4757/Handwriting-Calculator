@@ -181,8 +181,7 @@ public class CalculatorActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_help:
-                Intent i = new Intent(CalculatorActivity.this, help.class);
-               // i.putExtra("practice", true);
+                Intent i = new Intent(CalculatorActivity.this, help_calculator.class);
                 startActivity(i);
                 break;
 
