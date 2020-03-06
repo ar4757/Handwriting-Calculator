@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Handwriting Calculator</string>
     <string name="practice_name">Practice Mode</string>
-
     <string name="title_activity_calculator">Calculator</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -38,6 +37,10 @@
     <string name="problemHeader">Solve this problem:</string>
     <string name="checkAnswer">Check my answer</string>
     <string name="showAnswer">Show correct answer</string>
-    <string name ="practice_more">NULL</string>
+    <string name ="retry">RETRY</string>
+    <string name = "next">NEXT</string>
     <string name = "exit_practice_mode">EXIT</string>
+    <string name = "b1layout">b1layout</string>
+    <string name = "b2layout">b2layout</string>
+    <string name = "btnView">btnView</string>
 </resources>
