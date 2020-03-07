@@ -1,5 +1,6 @@
 package com.nui.handwritingcalculator;
 
+import android.content.Intent;
 import android.gesture.GestureOverlayView;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -75,6 +76,7 @@ public class PracticeActivity extends AppCompatActivity {
         final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
 
 
         hwView = findViewById(R.id.handwriting);
@@ -392,7 +394,8 @@ public class PracticeActivity extends AppCompatActivity {
 
             case R.id.action_help:
                 // User chose "help" - display help information
-                Toast.makeText(getApplicationContext(), "help selected", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(PracticeActivity.this, help_practice.class);
+               startActivity(i);
                 break;
 
             default:

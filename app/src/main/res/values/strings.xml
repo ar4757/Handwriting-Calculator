@@ -43,4 +43,54 @@
     <string name = "b1layout">b1layout</string>
     <string name = "b2layout">b2layout</string>
     <string name = "btnView">btnView</string>
+    <string name="practice_more">NULL</string>
+    <string name="exit_practice_mode">EXIT</string>
+    <string name="help_calc">Calculator Help</string>
+    <string name="help_practice">Practice Help</string>
+    <string name="long_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus sem neque, id tristique orci pulvinar gravida. Suspendisse faucibus condimentum nisl eu luctus. Donec quis aliquet nisi. Integer facilisis enim ut ipsum auctor commodo. Donec eleifend quam sit amet viverra vulputate. Vivamus id nunc in sem varius elementum. Suspendisse mollis ante ac malesuada laoreet.  Vivamus tincidunt tortor a tellus ornare, id vehicula nunc volutpat. Suspendisse luctus enim non dui commodo, in cursus metus blandit. Praesent rutrum magna enim, in tristique eros aliquam sit amet. Nulla in auctor libero. Aenean ac ipsum interdum, tincidunt sem in, dictum justo. Ut condimentum nibh risus, nec dictum eros auctor ac. Aliquam euismod, dui at efficitur finibus, nulla nibh aliquet velit, ut vestibulum nunc arcu quis quam. In finibus felis id ornare porttitor. Aenean dignissim efficitur nisi sed varius. Cras a dignissim ipsum.  In hac habitasse platea dictumst. Etiam velit nulla, placerat ut auctor in, imperdiet ac orci. Maecenas convallis aliquet finibus. Donec vehicula sodales dui, ac ultricies augue rutrum a. Donec eu mauris felis. Suspendisse ac vestibulum ipsum. Mauris at lorem nec ante semper tristique vel eget diam. Donec gravida urna condimentum, pellentesque nibh id, vehicula dolor. Nulla facilisi.  Aliquam semper ornare elit, sit amet ultricies est mattis nec. Vestibulum dictum finibus erat, eget ornare arcu posuere sed. Nunc pulvinar, justo id pellentesque accumsan, dui ipsum placerat enim, et finibus eros felis in metus. Etiam placerat, mi ac ultrices auctor, nisl nulla hendrerit augue, at gravida ligula ante ac magna. Maecenas pellentesque commodo ipsum, non pellentesque leo pharetra a. Etiam sollicitudin odio quis justo porttitor, quis aliquet massa condimentum. Proin auctor venenatis ex, id tincidunt tellus laoreet in. Morbi ac bibendum ante. Pellentesque tincidunt mauris leo, in finibus nisl mattis non.  Vivamus eget lobortis lectus. Nulla facilisi. Cras feugiat nisl arcu, eu commodo ex ultricies sit amet. Fusce tempor laoreet pretium. Nunc gravida ligula vel congue aliquet. Aenean laoreet pellentesque dui, sed aliquet ligula. In vitae lacus id diam congue tempus vitae at massa.  In vitae ipsum eu magna imperdiet mollis. Pellentesque mattis a est id semper. Integer efficitur hendrerit arcu ac luctus. Duis eget nisi orci. Sed commodo est sed risus scelerisque fermentum. Nulla lacinia, dui ac hendrerit posuere, libero libero hendrerit erat, id malesuada tortor sapien nec tortor. Aliquam sed dignissim eros, at viverra metus. Curabitur id aliquet lorem. Integer a fringilla nulla, in placerat augue.  Pellentesque nec ultrices neque. Nulla viverra ligula eros, congue placerat nisi aliquet vel. Quisque cursus egestas fringilla. Integer velit diam, ultrices quis felis hendrerit, dignissim tempus velit. Phasellus id laoreet tellus, ac finibus leo. Vivamus et ex ut felis dapibus consequat sit amet a arcu. Integer aliquet euismod arcu, non semper ligula dictum non. Proin varius lorem auctor, tempor lectus at, sagittis augue. Nunc aliquet sapien ligula, at rutrum magna elementum id. Quisque orci lectus, tempus elementum varius eget, placerat id lectus. Nunc luctus lacus enim, in luctus velit mollis id.  Curabitur non euismod metus, a bibendum nisi. Praesent luctus urna eget massa tempor interdum. Vivamus at interdum turpis. Integer ultrices, orci a maximus porttitor, nisi lectus pulvinar ipsum, non molestie tortor enim id tortor. Morbi at neque interdum, tincidunt nunc ut, tincidunt velit. Proin turpis massa, luctus at hendrerit a, fermentum nec enim. Curabitur rutrum pellentesque erat, ac interdum erat maximus nec. Aliquam aliquam et velit a cursus. Mauris viverra maximus est interdum varius. Mauris mattis commodo massa, quis ullamcorper est bibendum sit amet. Pellentesque diam dolor, tempor non risus at, tempus ultrices sapien. Aliquam eu lectus pulvinar, luctus nisl id, rutrum urna. Duis at ipsum mattis, sodales lorem nec, pharetra ex. Donec eget nibh lorem.</string>
+    <string name="calc_mode">Calculator Mode</string>
+    <string name="calculator_image_help">Calculator UI</string>
+    <string name="practice_help">Practice Mode</string>
+    <string name="html_calc_help">
+    <![CDATA[
+<p><span style="font-size: &#10;      18px;"><strong>1. Drawing Board:&nbsp;</strong>This is where you can write your mathematical expression with either your finger or a stylus pen.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;">Our calculator supports the following operations (handwritten expression in parenthesis):</span></p>
+<ul>
+  &#8226;&nbsp;Addition ( + )<br/>
+  &#8226;&nbsp;Subtraction ( - )<br/>
+  &#8226;&nbsp;Multiplication ( x )<br/>
+  &#8226;&nbsp;Division ( / )<br/>
+  &#8226;&nbsp;Exponents ( 5<sup>2</sup>)<br/>
+  &#8226;&nbsp;Square root ("radical symbol")<br/>
+  &#8226;&nbsp;Natural logarithm (ln())<br/>
+  &#8226;&nbsp;Logarithm (log())<br/>
+  &#8226;&nbsp;Parenthesis ()<br/>
+  &#8226;&nbsp;Fractions<br/>
+  &#8226;&nbsp;Decimals (3.2)<br/>
+  &#8226;&nbsp;Trig functions (sin(), cos(), tan ())<br/>
+</ul>
+<p><strong>2. Result Box:&nbsp;</strong>Here live feedback of what is written on the drawing board will be displayed in regular text. The result box also displays the solution <strong style="color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">(8)</strong> to the expression written in the drawing board after the CALCULATE<strong>&nbsp;</strong>button <span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">(3) </span>is pressed<strong>.</strong></p>
+<p><strong>3. Calculate Button:&nbsp;</strong>Press this button when you are ready for the calculator to evaluate the expression you\’ve written on the drawing board. Once this button is pressed, everything written in the drawing board will be cleared as well as the live feed back text.&nbsp;</p>
+<p><strong>4. Increase stroke width:&nbsp;</strong>Makes pen stroke thicker on drawing board.&nbsp;</p>
+<p><strong>5. Decrease stroke width:&nbsp;</strong>Makes pen stroke thinner on drawing board.&nbsp;</p>
+<p><strong>6. Undo:&nbsp;</strong>Deletes last recognized gesture from drawing board and feedback in result box.&nbsp;</p>
+<p><strong>7. Clear:&nbsp;</strong>Clears all writing drawing board as well as the feedback text in result box.&nbsp;</p>
+<p><strong>8. Solution: &nbsp;</strong>Solution to the written math expression is displayed here after pressing the CALCULATE button.</p>
+<p>
+  <br>
+</p>
+    ]]>
+</string>
+    <string name="html_practice_help">
+    <![CDATA[
+<p><span style="font-size: &#10;      18px;"><strong>1. Practice Select:&nbsp;</strong>Select which types of problem you wish to practice. You can select more than one problem. Press submit to start practicing.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>2. Problem Display:&nbsp;</strong>The problem to solved is displayed here according to what was selected in practice select. The problems are generated randomly and progressively get more difficult as you answer more questions correctly.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>3. Solution Board:&nbsp;</strong>The solution to the problem displayed in (2) goes here. You can also write your scratch work here, however, make sure that only your final answer is present on the board before you check your answer (4). You can do this by clearing the Solution board with (8), then proceed to write you final answe.r&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>4. Check My Answer/Show Correct Answer Buttons:&nbsp;</strong>Both buttons cause pop ups to appear. Check My Answer pop up first tells you if you answered the question correctly. If so, you are asked to try another problem or exit practice mode by taking you to the main menu. If your answer is incorrect, you are asked if you want to retry the problem or exit practice mode. For the Show Correct Answer button, you will be shown the correct answer and asked to try the problem or exit practice mode.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>5. Increase stroke width:&nbsp;</strong>Makes pen stroke thicker on solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>6. Decrease stroke width:&nbsp;</strong>Makes pen stroke thinner on solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>7. Undo:&nbsp;</strong>Deletes last stroke from solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>8. Clear:&nbsp;</strong>Clears all strokes from solution board. <strong>&nbsp;</strong></span></p>
+    ]]>
+</string>
 </resources>

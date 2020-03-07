@@ -1,5 +1,6 @@
 package com.nui.handwritingcalculator;
 
+import android.content.Intent;
 import android.gesture.Prediction;
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.PorterDuff;
@@ -185,8 +186,8 @@ public class CalculatorActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_help:
-                // User chose "help" - display help information
-                Toast.makeText(getApplicationContext(),"help selected",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(CalculatorActivity.this, help_calculator.class);
+                startActivity(i);
                 break;
 
             default:

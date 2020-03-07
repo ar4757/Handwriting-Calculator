@@ -40,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        Button helpButton = findViewById(R.id.help);
+        helpButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(MainActivity.this, help.class);
+                startActivity(i);
+            }
+        });
+
     }
 
 
