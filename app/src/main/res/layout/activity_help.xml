@@ -72,6 +72,16 @@
                 app:srcCompat="@drawable/calculator_help" />
 
             <TextView
+                android:id="@+id/calc_help_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/design_default_color_on_primary"
+                android:text="TextView"
+                android:textColor="@color/design_default_color_on_secondary" />
+
+            <TextView
                 android:id="@+id/Practice_Help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +96,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="326dp"
                 app:srcCompat="@drawable/help_practice" />
+
+            <TextView
+                android:id="@+id/prac_help_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/design_default_color_on_primary"
+                android:text="TextView"
+                android:textColor="@color/design_default_color_on_secondary" />
 
 
         </LinearLayout>

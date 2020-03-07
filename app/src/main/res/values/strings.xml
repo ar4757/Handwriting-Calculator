@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Handwriting Calculator</string>
     <string name="practice_name">Practice Mode</string>
-
     <string name="title_activity_calculator">Calculator</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -46,4 +45,46 @@
     <string name="calc_mode">Calculator Mode</string>
     <string name="calculator_image_help">Calculator UI</string>
     <string name="practice_help">Practice Mode</string>
+    <string name="html_calc_help">
+    <![CDATA[
+<p><span style="font-size: &#10;      18px;"><strong>1. Drawing Board:&nbsp;</strong>This is where you can write your mathematical expression with either your finger or a stylus pen.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;">Our calculator supports the following operations (handwritten expression in parenthesis):</span></p>
+<ul>
+  &#8226;&nbsp;Addition ( + )<br/>
+  &#8226;&nbsp;Subtraction ( - )<br/>
+  &#8226;&nbsp;Multiplication ( x )<br/>
+  &#8226;&nbsp;Division ( / )<br/>
+  &#8226;&nbsp;Exponents ( 5<sup>2</sup>)<br/>
+  &#8226;&nbsp;Square root ("radical symbol")<br/>
+  &#8226;&nbsp;Natural logarithm (ln())<br/>
+  &#8226;&nbsp;Logarithm (log())<br/>
+  &#8226;&nbsp;Parenthesis ()<br/>
+  &#8226;&nbsp;Fractions<br/>
+  &#8226;&nbsp;Decimals (3.2)<br/>
+  &#8226;&nbsp;Trig functions (sin(), cos(), tan ())<br/>
+</ul>
+<p><strong>2. Result Box:&nbsp;</strong>Here live feedback of what is written on the drawing board will be displayed in regular text. The result box also displays the solution <strong style="color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">(8)</strong> to the expression written in the drawing board after the CALCULATE<strong>&nbsp;</strong>button <span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">(3) </span>is pressed<strong>.</strong></p>
+<p><strong>3. Calculate Button:&nbsp;</strong>Press this button when you are ready for the calculator to evaluate the expression you\’ve written on the drawing board. Once this button is pressed, everything written in the drawing board will be cleared as well as the live feed back text.&nbsp;</p>
+<p><strong>4. Increase stroke width:&nbsp;</strong>Makes pen stroke thicker on drawing board.&nbsp;</p>
+<p><strong>5. Decrease stroke width:&nbsp;</strong>Makes pen stroke thinner on drawing board.&nbsp;</p>
+<p><strong>6. Undo:&nbsp;</strong>Deletes last recognized gesture from drawing board and feedback in result box.&nbsp;</p>
+<p><strong>7. Clear:&nbsp;</strong>Clears all writing drawing board as well as the feedback text in result box.&nbsp;</p>
+<p><strong>8. Solution: &nbsp;</strong>Solution to the written math expression is displayed here after pressing the CALCULATE button.</p>
+<p>
+  <br>
+</p>
+    ]]>
+</string>
+    <string name="html_practice_help">
+    <![CDATA[
+<p><span style="font-size: &#10;      18px;"><strong>1. Practice Select:&nbsp;</strong>Select which types of problem you wish to practice. You can select more than one problem. Press submit to start practicing.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>2. Problem Display:&nbsp;</strong>The problem to solved is displayed here according to what was selected in practice select. The problems are generated randomly and progressively get more difficult as you answer more questions correctly.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>3. Solution Board:&nbsp;</strong>The solution to the problem displayed in (2) goes here. You can also write your scratch work here, however, make sure that only your final answer is present on the board before you check your answer (4). You can do this by clearing the Solution board with (8), then proceed to write you final answe.r&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>4. Check My Answer/Show Correct Answer Buttons:&nbsp;</strong>Both buttons cause pop ups to appear. Check My Answer pop up first tells you if you answered the question correctly. If so, you are asked to try another problem or exit practice mode by taking you to the main menu. If your answer is incorrect, you are asked if you want to retry the problem or exit practice mode. For the Show Correct Answer button, you will be shown the correct answer and asked to try the problem or exit practice mode.</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>5. Increase stroke width:&nbsp;</strong>Makes pen stroke thicker on solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>6. Decrease stroke width:&nbsp;</strong>Makes pen stroke thinner on solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>7. Undo:&nbsp;</strong>Deletes last stroke from solution board.&nbsp;</span></p>
+<p><span style="font-size: &#10;      18px;"><strong>8. Clear:&nbsp;</strong>Clears all strokes from solution board. <strong>&nbsp;</strong></span></p>
+    ]]>
+</string>
 </resources>

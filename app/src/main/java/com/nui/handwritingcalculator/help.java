@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +68,26 @@ public class help extends AppCompatActivity {
                 pracHelpButton.setPaintFlags(pracHelpButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             }
         });
+
+        TextView view1 = (TextView)findViewById(R.id.calc_help_text);
+
+        String text1 = getString(R.string.html_calc_help);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view1.setText(Html.fromHtml(text1,Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            view1.setText(Html.fromHtml(text1));
+        }
+
+        TextView view2 = (TextView)findViewById(R.id.prac_help_text);
+
+        String text2 = getString(R.string.html_practice_help);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view2.setText(Html.fromHtml(text2,Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            view2.setText(Html.fromHtml(text2));
+        }
 
     }
 
