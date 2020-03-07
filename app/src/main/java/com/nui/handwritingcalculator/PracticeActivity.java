@@ -4,6 +4,7 @@ import android.gesture.GestureOverlayView;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -187,6 +190,11 @@ public class PracticeActivity extends AppCompatActivity {
         String userString = hwView.getTextString();
         double userAnswer = 0.0;
         boolean validNumber = true;
+        String b1Title = getString(R.string.retry); //"TRY AGAIN";
+        String b2Title = getString(R.string.next); //"NEXT PROBLEM";
+        String title;
+        String message;
+
         if (userString != "") {
             try {
                 userAnswer = Double.valueOf(userString);
@@ -195,29 +203,34 @@ public class PracticeActivity extends AppCompatActivity {
                 validNumber = false;
             }
         }
-        //Should probably show some kind of popup here
+        else {
+            validNumber = false;
+            userString = " ";
+        }
+        //Show popup here
 
-        if (validNumber && userAnswer == answer) {
-            String title = "CORRECT!";
-            String message = "Your answer of " + userString + " is correct!";
-            customPopUp(title, message);
+        if (validNumber) {
+            if (userAnswer == answer) {
+                title = "CORRECT!";
+                message = "Your answer of " + userString + " is correct!";
+                b1Title = "";
+            }
+            else {
+                title = "WRONG!";
+                message = "Your answer of " + userString + " is not correct!";
+            }
         }
-        else if (validNumber && userAnswer != answer) {
-            String title = "WRONG!";
-            String message = "Your answer of " + userString + " is not correct! Please retry!";
-            customPopUp(title,message);
+        else {
+            title = "ERROR!";
+            message = "Your answer of " + userString + " contains invalid symbols.\n\nPlease enter numbers only.";
         }
-        else if (validNumber == false) {
-            String title = "ERROR!";
-            String message = "Your answer of " + userString + " contains invalid symbols (numbers only)!";
-            customPopUp(title, message);
-        }
+        customPopUp(title, message, b1Title, b2Title);
         clear();
 
     }
 
 
-    private void customPopUp(String title, String message) {
+    private void customPopUp(String title, String message, String b1Title, String b2Title) {
         ViewGroup viewGroup = findViewById(android.R.id.content);
         final View dialogView = LayoutInflater.from(this).inflate(R.layout.custom_popup_check_answer, viewGroup, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -229,58 +242,82 @@ public class PracticeActivity extends AppCompatActivity {
         TextView description = (TextView) dialogView.findViewById(R.id.text_description);
         description.setText(message);
 
-        Button btn1 = (Button) dialogView.findViewById(R.id.practice_more_or_retry);
-        Button btn2 = (Button) dialogView.findViewById(R.id.exit_practice_mode);
+        Button btn1 = (Button) dialogView.findViewById(R.id.btn1);
+        Button btn2 = (Button) dialogView.findViewById(R.id.btn2);
+        btn1.setText(b1Title);
+        btn2.setText(b2Title);
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //exit the practice mode
-                alertDialog.dismiss();
-                finish();
-            }
-        });
+         btn2.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 alertDialog.dismiss();
+                 generateProblem();
+             }
+         });
 
-        switch (title){
-            case "CORRECT!":
-                btn1.setText("PRACTICE MORE");
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                        generateProblem();
-                    }
-                });
-                break;
+        RelativeLayout btnLayout = (RelativeLayout) dialogView.findViewById(R.id.b1Layout);
+        LinearLayout btnView = (LinearLayout) btnLayout.getParent();
 
-            case "WRONG!":
-                btn1.setText("RETRY");
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                break;
-            case "ANSWER":
-                btn1.setText("TRY PROBLEM");
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });                break;
-            default:
-                //btn.setText("RETRY")
-                btn1.setText("DISMISS ERROR");
-                btn1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
+        if (b1Title == "") {
+           btnView.removeView(btnLayout);
+        }
+        else {
+            btn1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //exit the practice mode
+                    alertDialog.dismiss();
+//                finish();
+                }
+            });
+            btn1.setVisibility(View.VISIBLE);
 
         }
 
 
-
-
-
+//        switch (title){
+//            case "CORRECT!":
+//                btn1.setText("NEXT PROBLEM");
+//                btn1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                        generateProblem();
+//                    }
+//                });
+//                btn2.setVisibility(View.GONE);
+//                break;
+//
+//            case "WRONG!":
+//                btn1.setText("RETRY");
+//                btn1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//                btn2.setVisibility(View.VISIBLE);
+//                btn2.setText("NEXT PROBLEM");
+//                btn2.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                        generateProblem();
+//                    }
+//                });
+//                break;
+//            case "ANSWER":
+//                btn1.setText("TRY PROBLEM");
+//                btn1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                    }
+//                });                break;
+//            default:
+//                btn1.setText("RETRY");
+////                btn1.setText("DISMISS ERROR");
+//                btn1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//        }
 
 
 
@@ -295,7 +332,7 @@ public class PracticeActivity extends AppCompatActivity {
 
         String title = "ANSWER";
         String message = "The correct answer = " + value;
-        customPopUp(title,message);
+        customPopUp(title,message,"", getString(R.string.next));
 
     }
 

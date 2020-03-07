@@ -44,6 +44,7 @@ public class PracticeSelect extends AppCompatActivity {
         upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.custom_background));
+
         getSupportActionBar().setTitle("");
 
         multi=false;
@@ -64,7 +65,7 @@ public class PracticeSelect extends AppCompatActivity {
             public void onClick(View v) {
                 if(multiplyCheckbox.isChecked()){
                     multi=true;
-                    Toast.makeText(getApplicationContext(),"Multi Checked",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Multi Checked",Toast.LENGTH_SHORT).show();
                 }
                 else multi=false;
             }
@@ -75,7 +76,7 @@ public class PracticeSelect extends AppCompatActivity {
             public void onClick(View v) {
                 if(divideCheckbox.isChecked()){
                     divide=true;
-                    Toast.makeText(getApplicationContext(),"divide Checked",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"divide Checked",Toast.LENGTH_SHORT).show();
                 }
                 else divide=false;
             }
@@ -86,7 +87,7 @@ public class PracticeSelect extends AppCompatActivity {
             public void onClick(View v) {
                 if(addCheckbox.isChecked()){
                     add=true;
-                    Toast.makeText(getApplicationContext(),"add Checked",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"add Checked",Toast.LENGTH_SHORT).show();
                 }
                 else add=false;
             }
@@ -97,7 +98,7 @@ public class PracticeSelect extends AppCompatActivity {
             public void onClick(View v) {
                 if(subCheckbox.isChecked()){
                     sub=true;
-                    Toast.makeText(getApplicationContext(),"Subtract Checked",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Subtract Checked",Toast.LENGTH_SHORT).show();
                 }
                 else sub=false;
             }

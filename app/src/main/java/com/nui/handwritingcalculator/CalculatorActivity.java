@@ -114,13 +114,17 @@ public class CalculatorActivity extends AppCompatActivity {
     private void calculate() {
         //send formula for processing then write string to solutionView
         String solution = hwView.getTextString();
-        solution = solution.replace('x', '*');
-        clear();
-        //create an expression
-        Expression e = new Expression(solution);
-        Double value = e.calculate();
-        solution = value.toString();
+        if (solution != "") {
 
+            solution = solution.replace('x', '*');
+            clear();
+            //create an expression
+            Expression e = new Expression(solution);
+            Double value = e.calculate();
+            solution = value.toString();
+
+        }
+        else solution = " ";
         solutionView.setText("Solution is: " + solution);
         hwView.setText(solution);
         hwView.onGestureResetText();

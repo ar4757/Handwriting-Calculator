@@ -484,7 +484,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     public void clear() {
         gestureStack.clear();
         lastGesture = null;
-        currentCountDownTimer.cancel();
+        if (isCurrentCountDownTimerRunning) currentCountDownTimer.cancel();
         clearText();  //created method in case we need to do other stuff
         refresh();
     } //clear

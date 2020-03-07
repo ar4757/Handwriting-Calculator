@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="300dp"
     android:layout_height="300dp"
-    android:background="@drawable/custom_popup"
-    android:padding="5dp"
     android:layout_gravity="center"
-    >
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
-        android:id = "@+id/text_heading"
+        android:id="@+id/text_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/design_default_color_on_primary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/design_default_color_on_secondary"
         android:textSize="45sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:padding="5dp"
-        />
+        android:textStyle="bold" />
+
     <TextView
-        android:id = "@+id/text_description"
+        android:id="@+id/text_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/design_default_color_on_primary"
-        android:textSize="20sp"
         android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
         android:gravity="center"
         android:padding="5dp"
-        android:layout_marginVertical="20dp"
-        />
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20sp" />
 
     <LinearLayout
+        android:id="@+id/btnView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
         android:layout_marginTop="50dp"
         android:gravity="fill_horizontal"
+        android:orientation="horizontal"
 
-        >
+        android:padding="5dp">
+
         <RelativeLayout
+            android:id="@+id/b1Layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <Button
-                android:id="@+id/practice_more_or_retry"
+                android:id="@+id/btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_button"
+                android:minHeight="60dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:background="@drawable/custom_button"
-                android:layout_centerHorizontal="true"
-                android:minHeight="60dp"
                 android:textColor="@color/design_default_color_on_secondary" />
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/b2layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <Button
-                android:id="@+id/exit_practice_mode"
+                android:id="@+id/btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/custom_button"
                 android:minHeight="60dp"
-                android:text="@string/exit_practice_mode"
                 android:textColor="@color/design_default_color_on_secondary" />
         </RelativeLayout>
-
-
 
 
     </LinearLayout>
