@@ -95,7 +95,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
                 android:layout_height="326dp"
-                app:srcCompat="@drawable/help_practice" />
+                app:srcCompat="@drawable/prac_help" />
 
             <TextView
                 android:id="@+id/prac_help_text"
