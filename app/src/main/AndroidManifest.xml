@@ -48,6 +48,11 @@
             android:label="Help"
             android:parentActivityName=".CalculatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".prac_select_help"
+            android:label="Help"
+            android:parentActivityName=".PracticeSelect"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -5,6 +5,10 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,7 +49,8 @@ public class PracticeSelect extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.custom_background));
 
-        getSupportActionBar().setTitle("");
+        String text = getString(R.string.practice_select);
+        getSupportActionBar().setTitle(Html.fromHtml(text));
 
         multi=false;
         divide=false;
@@ -117,4 +122,37 @@ public class PracticeSelect extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        boolean rtn = true;
+
+        switch(item.getItemId()) {
+            case R.id.action_help:
+                Intent i = new Intent(PracticeSelect.this, prac_select_help.class);
+                startActivity(i);
+                break;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                rtn =  super.onOptionsItemSelected(item);
+                break;
+             }
+            return rtn;
+
+            }
+
+
 }

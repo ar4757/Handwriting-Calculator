@@ -37,18 +37,20 @@
     <string name="problemHeader">Solve this problem:</string>
     <string name="checkAnswer">Check my answer</string>
     <string name="showAnswer">Show correct answer</string>
-    <string name ="retry">RETRY</string>
-    <string name = "next">NEXT</string>
-    <string name = "exit_practice_mode">EXIT</string>
-    <string name = "b1layout">b1layout</string>
-    <string name = "b2layout">b2layout</string>
-    <string name = "btnView">btnView</string>
+    <string name="retry">RETRY</string>
+    <string name="next">NEXT</string>
+    <string name="exit_practice_mode">EXIT</string>
+    <string name="b1layout">b1layout</string>
+    <string name="b2layout">b2layout</string>
+    <string name="btnView">btnView</string>
     <string name="practice_more">NULL</string>
     <string name="help_calc">Calculator Help</string>
     <string name="help_practice">Practice Help</string>
     <string name="calc_mode">Calculator Mode</string>
     <string name="calculator_image_help">Calculator UI</string>
     <string name="practice_help">Practice Mode</string>
+    <string name="practice_select"><![CDATA[<font color=#000000>Practice Select]]></string>
+    <string name="select_directions"> What would you like to practice? </string>string>
     <string name="html_calc_help">
     <![CDATA[
 <p><span style="font-size: &#10;      18px;"><strong>1. Drawing Board:&nbsp;</strong>This is where you can write your mathematical expression with either your finger or a stylus pen.&nbsp;</span></p>
@@ -91,4 +93,5 @@
 <p><span style="font-size: &#10;      18px;"><strong>8. Clear:&nbsp;</strong>Clears all strokes from solution board. <strong>&nbsp;</strong></span></p>
     ]]>
 </string>
+
 </resources>
