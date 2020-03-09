@@ -190,6 +190,7 @@ public class PracticeActivity extends AppCompatActivity {
         String answerString = Double.toString(answer);
 
         String userString = hwView.getTextString();
+        userString = userString.replaceAll(" ","");
         double userAnswer = 0.0;
         boolean validNumber = true;
         String b1Title = getString(R.string.retry); //"TRY AGAIN";
