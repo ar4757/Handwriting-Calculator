@@ -362,12 +362,18 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         if (gestureList.isEmpty()) {
             CustomGesture customGesture = new CustomGesture(gesture, action);
             gestureList.add(customGesture);
+            if (action.equals("√")) {
+                CustomGesture leftParentheses = new CustomGesture(gesture, "(");
+                gestureList.add(leftParentheses);
+                CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                gestureList.add(rightParentheses);
+            }
         }
         else {
             //Find the leftmost position (x coordinate) at which to insert the gesture
             //If there is a division bar, locate it. Can't compare xCoordinates of elements above vs below the division bar
             Gesture divisionBar = null;
-            boolean hadRightParentheses = false;
+            int rightParenthesesRemoved = 0;
             int index = 0;
             for (int i = 0; i < gestureList.size(); i++) {
                 if (gestureList.get(i).action == "/") {
@@ -380,9 +386,9 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             if (divisionBar != null && yTopVal < divisionBar.getBoundingBox().bottom) {
                 index = 0;
             }
-            if (gestureList.get(gestureList.size()-1).action == ")") {
+            while (gestureList.get(gestureList.size()-1).action == ")") {
                 gestureList.remove(gestureList.size()-1);
-                hadRightParentheses = true;
+                rightParenthesesRemoved++;
             }
             for (int i = index; i < gestureList.size(); i++) {
                 float currentXLeftVal = 0;
@@ -410,6 +416,10 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                                     gestureList.add(j, rightParentheses);
                                     CustomGesture customGesture = new CustomGesture(gesture, action);
                                     gestureList.add(j, customGesture);
+                                    if (action.equals("√")) {
+                                        gestureList.add(j, leftParentheses);
+                                        gestureList.add(j, rightParentheses);
+                                    }
                                     leftParentheses = new CustomGesture(gesture, "(");
                                     gestureList.add(j, leftParentheses);
                                     rightParentheses = new CustomGesture(gesture, ")");
@@ -421,6 +431,10 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                             gestureList.add(rightParentheses);
                             CustomGesture customGesture = new CustomGesture(gesture, action);
                             gestureList.add(customGesture);
+                            if (action.equals("√")) {
+                                gestureList.add(leftParentheses);
+                                gestureList.add(rightParentheses);
+                            }
                             leftParentheses = new CustomGesture(gesture, "(");
                             gestureList.add(leftParentheses);
                             rightParentheses = new CustomGesture(gesture, ")");
@@ -430,6 +444,12 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     gestureList.add(i, customGesture);
+                    if (action.equals("√")) {
+                        CustomGesture leftParentheses = new CustomGesture(gesture, "(");
+                        gestureList.add(i, leftParentheses);
+                        CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                        gestureList.add(i, rightParentheses);
+                    }
                     break;
                 }
                 else if (i == gestureList.size() - 1) {
@@ -440,10 +460,16 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     gestureList.add(customGesture);
+                    if (action.equals("√")) {
+                        CustomGesture leftParentheses = new CustomGesture(gesture, "(");
+                        gestureList.add(leftParentheses);
+                        CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                        gestureList.add(rightParentheses);
+                    }
                     break;
                 }
             }
-            if (hadRightParentheses) {
+            for (int i = 0; i < rightParenthesesRemoved; i++) {
                 CustomGesture rightParentheses = new CustomGesture(gesture, ")");
                 gestureList.add(rightParentheses);
             }

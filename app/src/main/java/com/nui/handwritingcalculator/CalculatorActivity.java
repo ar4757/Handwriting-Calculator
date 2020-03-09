@@ -118,6 +118,7 @@ public class CalculatorActivity extends AppCompatActivity {
         if (solution != "") {
 
             solution = solution.replace('x', '*');
+            solution = solution.replace("√", "sqrt");
             clear();
             //create an expression
             Expression e = new Expression(solution);
