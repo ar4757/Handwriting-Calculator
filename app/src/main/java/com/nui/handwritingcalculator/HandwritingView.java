@@ -392,20 +392,21 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 gestureList.remove(gestureList.size()-1);
                 rightParenthesesRemoved++;
             }
-            if (alwaysContinueOnNextLine) {
-                index = gestureList.size()-1;
-            }
-            else {
-                boolean continuedOnNextLine = true;
-                for (int i = 0; i < gestureList.size(); i++) {
-                    if (yTopVal < gestureList.get(i).gesture.getBoundingBox().bottom) {
-                        continuedOnNextLine = false;
-                        break;
-                    }
-                }
-                if (continuedOnNextLine) {
+            if (!action.equals("-")) {
+                if (alwaysContinueOnNextLine) {
                     index = gestureList.size() - 1;
-                    alwaysContinueOnNextLine = true;
+                } else {
+                    boolean continuedOnNextLine = true;
+                    for (int i = 0; i < gestureList.size(); i++) {
+                        if (yTopVal < gestureList.get(i).gesture.getBoundingBox().bottom) {
+                            continuedOnNextLine = false;
+                            break;
+                        }
+                    }
+                    if (continuedOnNextLine) {
+                        index = gestureList.size() - 1;
+                        alwaysContinueOnNextLine = true;
+                    }
                 }
             }
             for (int i = index; i < gestureList.size(); i++) {
@@ -428,6 +429,45 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     }
                     if (isInteger && gesture.getBoundingBox().height() < previousGesture.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(previousGesture.getBoundingBox().right - 20, previousGesture.getBoundingBox().top - 60, previousGesture.getBoundingBox().right + 60, previousGesture.getBoundingBox().bottom - previousGesture.getBoundingBox().height()/2)) {
                         action = "^" + action;
+                    }
+                    //Division with a horizontal bar check
+                    if (action.equals("-") && gesture.getBoundingBox().top > previousGesture.getBoundingBox().bottom) {
+                        action = "/";
+                        if (xLeftVal < currentXLeftVal) {
+                            CustomGesture leftParentheses = new CustomGesture(gesture, "(");
+                            gestureList.add(i, leftParentheses);
+                            for (int j = i+1; j < gestureList.size(); j++) {
+                                float currentXRightVal = gestureList.get(j).gesture.getBoundingBox().right;
+                                if (xRightVal < currentXRightVal) {
+                                    CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                                    gestureList.add(j, rightParentheses);
+                                    CustomGesture customGesture = new CustomGesture(gesture, action);
+                                    gestureList.add(j, customGesture);
+                                    if (action.equals("√")) {
+                                        gestureList.add(j, leftParentheses);
+                                        gestureList.add(j, rightParentheses);
+                                    }
+                                    leftParentheses = new CustomGesture(gesture, "(");
+                                    gestureList.add(j, leftParentheses);
+                                    rightParentheses = new CustomGesture(gesture, ")");
+                                    gestureList.add(j, rightParentheses);
+                                    break;
+                                }
+                            }
+                            CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                            gestureList.add(rightParentheses);
+                            CustomGesture customGesture = new CustomGesture(gesture, action);
+                            gestureList.add(customGesture);
+                            if (action.equals("√")) {
+                                gestureList.add(leftParentheses);
+                                gestureList.add(rightParentheses);
+                            }
+                            leftParentheses = new CustomGesture(gesture, "(");
+                            gestureList.add(leftParentheses);
+                            rightParentheses = new CustomGesture(gesture, ")");
+                            gestureList.add(rightParentheses);
+                            break;
+                        }
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     if (divisionBar != null && yTopVal < divisionBar.getBoundingBox().bottom) {
