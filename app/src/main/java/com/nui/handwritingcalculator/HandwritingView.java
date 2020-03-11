@@ -354,6 +354,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         }
     }
 
+    boolean alwaysContinueOnNextLine = false;
+
     private void insertGestureBasedOnPosition(Gesture gesture, String action) {
         float xLeftVal = gesture.getBoundingBox().left;
         float xRightVal = gesture.getBoundingBox().right;
@@ -390,15 +392,21 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 gestureList.remove(gestureList.size()-1);
                 rightParenthesesRemoved++;
             }
-            boolean continuedOnNextLine = true;
-            for (int i = 0; i < gestureList.size(); i++) {
-                if (yTopVal > gestureList.get(i).gesture.getBoundingBox().bottom) {
-                    continuedOnNextLine = false;
-                    break;
-                }
-            }
-            if (continuedOnNextLine) {
+            if (alwaysContinueOnNextLine) {
                 index = gestureList.size()-1;
+            }
+            else {
+                boolean continuedOnNextLine = true;
+                for (int i = 0; i < gestureList.size(); i++) {
+                    if (yTopVal < gestureList.get(i).gesture.getBoundingBox().bottom) {
+                        continuedOnNextLine = false;
+                        break;
+                    }
+                }
+                if (continuedOnNextLine) {
+                    index = gestureList.size() - 1;
+                    alwaysContinueOnNextLine = true;
+                }
             }
             for (int i = index; i < gestureList.size(); i++) {
                 float currentXLeftVal = 0;
