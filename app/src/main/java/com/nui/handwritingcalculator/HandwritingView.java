@@ -410,7 +410,15 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 if (i == gestureList.size() - 1) {
                     //Exponent check
                     Gesture previousGesture = gestureList.get(i).gesture;
-                    if (gesture.getBoundingBox().height() < previousGesture.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(previousGesture.getBoundingBox().right - 20, previousGesture.getBoundingBox().top - 60, previousGesture.getBoundingBox().right + 60, previousGesture.getBoundingBox().bottom - previousGesture.getBoundingBox().height()/2)) {
+                    boolean isInteger = false;
+                    try {
+                        Integer.parseInt(action);
+                        isInteger = true;
+                    }
+                    catch (Exception e) {
+                        isInteger = false;
+                    }
+                    if (isInteger && gesture.getBoundingBox().height() < previousGesture.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(previousGesture.getBoundingBox().right - 20, previousGesture.getBoundingBox().top - 60, previousGesture.getBoundingBox().right + 60, previousGesture.getBoundingBox().bottom - previousGesture.getBoundingBox().height()/2)) {
                         action = "^" + action;
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
@@ -437,7 +445,15 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 else if (xLeftVal < currentXLeftVal) {
                     //Exponent check
                     Gesture previousGesture = gestureList.get(i).gesture;
-                    if (gesture.getBoundingBox().height() < previousGesture.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(previousGesture.getBoundingBox().right - 20, previousGesture.getBoundingBox().top - 60, previousGesture.getBoundingBox().right + 60, previousGesture.getBoundingBox().bottom - previousGesture.getBoundingBox().height()/2)) {
+                    boolean isInteger = false;
+                    try {
+                        Integer.parseInt(action);
+                        isInteger = true;
+                    }
+                    catch (Exception e) {
+                        isInteger = false;
+                    }
+                    if (isInteger && gesture.getBoundingBox().height() < previousGesture.getBoundingBox().height()/2 && gesture.getBoundingBox().intersect(previousGesture.getBoundingBox().right - 20, previousGesture.getBoundingBox().top - 60, previousGesture.getBoundingBox().right + 60, previousGesture.getBoundingBox().bottom - previousGesture.getBoundingBox().height()/2)) {
                         action = "^" + action;
                     }
                     //Division with a horizontal bar check
