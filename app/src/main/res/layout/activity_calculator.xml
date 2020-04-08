@@ -108,10 +108,11 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="3dp"
+        android:gravity="center"
         android:layout_weight="1"
         android:background="@color/design_default_color_on_secondary"
         android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="40sp" />
 
 </LinearLayout>
 
