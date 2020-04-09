@@ -151,6 +151,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                   tstr += g.action;
               }
           }
+          tstr = tstr.replaceAll("\\((\\d)\\)", "$1");
+          tstr = tstr.replaceAll("\\(\\)", "");
         }
         return tstr;
     }
