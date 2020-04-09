@@ -52,6 +52,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     public boolean isCurrentCountDownTimerRunning = false;
     public Boolean libraryLoaded = false;
     private Boolean gestureResetsText=false;
+    private int lastInsertedIndex = 0;
 
     //If we want to write the math expression to a text area,
     //call writeExpressionToTextArea
@@ -366,6 +367,8 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
         if (gestureList.isEmpty()) {
             CustomGesture customGesture = new CustomGesture(gesture, action);
             gestureList.add(customGesture);
+            lastInsertedIndex = gestureList.size()-1;
+
             if (action.equals("√")) {
                 CustomGesture leftParentheses = new CustomGesture(gesture, "(");
                 gestureList.add(leftParentheses);
@@ -445,6 +448,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                                     gestureList.add(j, rightParentheses);
                                     CustomGesture customGesture = new CustomGesture(gesture, action);
                                     gestureList.add(j, customGesture);
+                                    lastInsertedIndex = j;
                                     if (action.equals("√")) {
                                         gestureList.add(j, leftParentheses);
                                         gestureList.add(j, rightParentheses);
@@ -460,6 +464,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                             gestureList.add(rightParentheses);
                             CustomGesture customGesture = new CustomGesture(gesture, action);
                             gestureList.add(customGesture);
+                            lastInsertedIndex = gestureList.size()-1;
                             if (action.equals("√")) {
                                 gestureList.add(leftParentheses);
                                 gestureList.add(rightParentheses);
@@ -474,6 +479,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     if (divisionBar != null && yTopVal < divisionBar.getBoundingBox().bottom) {
                         gestureList.add(index-1, customGesture);
+                        lastInsertedIndex = index-1;
                         if (action.equals("√")) {
                             CustomGesture leftParentheses = new CustomGesture(gesture, "(");
                             gestureList.add(index-1, leftParentheses);
@@ -483,6 +489,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     }
                     else {
                         gestureList.add(customGesture);
+                        lastInsertedIndex = gestureList.size()-1;
                         if (action.equals("√")) {
                             CustomGesture leftParentheses = new CustomGesture(gesture, "(");
                             gestureList.add(leftParentheses);
@@ -519,6 +526,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                                     gestureList.add(j, rightParentheses);
                                     CustomGesture customGesture = new CustomGesture(gesture, action);
                                     gestureList.add(j, customGesture);
+                                    lastInsertedIndex = j;
                                     if (action.equals("√")) {
                                         gestureList.add(j, leftParentheses);
                                         gestureList.add(j, rightParentheses);
@@ -534,6 +542,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                             gestureList.add(rightParentheses);
                             CustomGesture customGesture = new CustomGesture(gesture, action);
                             gestureList.add(customGesture);
+                            lastInsertedIndex = gestureList.size()-1;
                             if (action.equals("√")) {
                                 gestureList.add(leftParentheses);
                                 gestureList.add(rightParentheses);
@@ -547,6 +556,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
                     gestureList.add(i, customGesture);
+                    lastInsertedIndex = i;
                     if (action.equals("√")) {
                         CustomGesture leftParentheses = new CustomGesture(gesture, "(");
                         gestureList.add(i, leftParentheses);
@@ -589,6 +599,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     //--------------------*/
     public void clearText() {
         gestureList.clear();
+        lastInsertedIndex = 0;
     } //clearText
 
     //--------------------*/
@@ -605,18 +616,32 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
 
     public void undo() {
         //undo the last gesture
-        String result = null;
-        int i = gestureStack.size();
 
         //If there is at least one gesture on the screen, pop the last gesture from the gesture list
         //and remove it from the math expression. Erase that gesture from the screen.
 
-        if (i > 0) {
-            i--;
-            gestureStack.pop();
-            refresh();
-            gestureList.remove(i);
-        }
+            if (gestureStack.empty() == false) {
+                gestureStack.pop();
+                refresh();
+            }
+
+            if (lastInsertedIndex > 0 && lastInsertedIndex < gestureList.size()-1 && gestureList.get(lastInsertedIndex-1).action == "(" && gestureList.get(lastInsertedIndex+1).action == ")") {
+                gestureList.remove(lastInsertedIndex+1);
+                gestureList.remove(lastInsertedIndex);
+                gestureList.remove(lastInsertedIndex-1);
+                lastInsertedIndex-=2;
+            }
+            else {
+                if (gestureList.isEmpty() == false) {
+                    gestureList.remove(lastInsertedIndex);
+                    if (lastInsertedIndex > 0) {
+                        lastInsertedIndex--;
+                        if (lastInsertedIndex - 2 >= 0 && gestureList.get(lastInsertedIndex).action == ")" && gestureList.get(lastInsertedIndex - 2).action == "(") {
+                            lastInsertedIndex--;
+                        }
+                    }
+                }
+            }
         //need to remove last gesture from screen
 
     } //undo
