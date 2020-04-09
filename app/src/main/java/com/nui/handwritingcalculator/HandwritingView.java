@@ -361,6 +361,7 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
     }
 
     boolean alwaysContinueOnNextLine = false;
+    boolean addBackRightParentheses = true;
 
     private void insertGestureBasedOnPosition(Gesture gesture, String action) {
         float xLeftVal = gesture.getBoundingBox().left;
@@ -480,7 +481,26 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                         }
                     }
                     CustomGesture customGesture = new CustomGesture(gesture, action);
-                    if (divisionBar != null && yTopVal < divisionBar.getBoundingBox().bottom) {
+                    if (divisionBar != null && xLeftVal > divisionBar.getBoundingBox().right) {
+                        if (fractionIsEnclosed()) {
+                            gestureList.add(customGesture);
+                            lastInsertedIndex = gestureList.size() - 1;
+                        }
+                        else {
+                            CustomGesture leftParentheses = new CustomGesture(gesture, "(");
+                            gestureList.add(0, leftParentheses);
+                            for (int j = 0; j < rightParenthesesRemoved; j++) {
+                                CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                                gestureList.add(rightParentheses);
+                            }
+                            CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                            gestureList.add(rightParentheses);
+                            gestureList.add(customGesture);
+                            lastInsertedIndex = gestureList.size() - 1;
+                            addBackRightParentheses = false;
+                        }
+                    }
+                    else if (divisionBar != null && yTopVal < divisionBar.getBoundingBox().bottom) {
                         gestureList.add(index-1, customGesture);
                         lastInsertedIndex = index-1;
                         if (action.equals("√")) {
@@ -491,8 +511,14 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                         }
                     }
                     else {
-                        gestureList.add(customGesture);
-                        lastInsertedIndex = gestureList.size()-1;
+                        if (xLeftVal < currentXLeftVal) {
+                            gestureList.add(i, customGesture);
+                            lastInsertedIndex = 0;
+                        }
+                        else {
+                            gestureList.add(customGesture);
+                            lastInsertedIndex = gestureList.size()-1;
+                        }
                         if (action.equals("√")) {
                             CustomGesture leftParentheses = new CustomGesture(gesture, "(");
                             gestureList.add(leftParentheses);
@@ -569,10 +595,13 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                     break;
                 }
             }
-            for (int i = 0; i < rightParenthesesRemoved; i++) {
-                CustomGesture rightParentheses = new CustomGesture(gesture, ")");
-                gestureList.add(rightParentheses);
+            if (addBackRightParentheses == true) {
+                for (int i = 0; i < rightParenthesesRemoved; i++) {
+                    CustomGesture rightParentheses = new CustomGesture(gesture, ")");
+                    gestureList.add(rightParentheses);
+                }
             }
+            addBackRightParentheses = true;
         }
     }
     public void finalizeGesture() {
@@ -580,6 +609,25 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
             currentCountDownTimer.onFinish();
             currentCountDownTimer.cancel();
         }
+    }
+
+    private boolean fractionIsEnclosed() {
+        boolean left = false;
+        boolean right = false;
+        for (int i = 0; i < gestureList.size(); i++) {
+            if (gestureList.get(i).action == "(") {
+                if (i < gestureList.size()-1 && gestureList.get(i+1).action == "(") {
+                    left = true;
+                }
+            }
+            if (gestureList.get(i).action == ")") {
+                if (i < gestureList.size()-1 && gestureList.get(i+1).action == ")") {
+                    right = true;
+                    break;
+                }
+            }
+        }
+        return left && right;
     }
 
     public float getStrokeWidth() {
@@ -627,15 +675,25 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                 gestureStack.pop();
                 refresh();
             }
-
+            if (lastInsertedIndex < 0) {
+                lastInsertedIndex = 0;
+            }
             if (lastInsertedIndex > 0 && lastInsertedIndex < gestureList.size()-1 && gestureList.get(lastInsertedIndex-1).action == "(" && gestureList.get(lastInsertedIndex+1).action == ")") {
+                System.out.println("Swag");
                 gestureList.remove(lastInsertedIndex+1);
                 gestureList.remove(lastInsertedIndex);
                 gestureList.remove(lastInsertedIndex-1);
                 lastInsertedIndex-=2;
             }
+            else if (lastInsertedIndex == gestureList.size()-1 && gestureList.get(0).action == "(" && gestureList.get(lastInsertedIndex-1).action == ")") {
+                System.out.println("Money");
+                gestureList.remove(lastInsertedIndex);
+                gestureList.remove(lastInsertedIndex-1);
+                gestureList.remove(0);
+                lastInsertedIndex-=4;
+            }
             else {
-                if (gestureList.isEmpty() == false) {
+                if (gestureList.isEmpty() == false && lastInsertedIndex >= 0 && lastInsertedIndex < gestureList.size()) {
                     gestureList.remove(lastInsertedIndex);
                     if (lastInsertedIndex > 0) {
                         lastInsertedIndex--;
