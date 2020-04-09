@@ -152,9 +152,12 @@ public class HandwritingView extends View implements GestureOverlayView.OnGestur
                   tstr += g.action;
               }
           }
-          tstr = tstr.replaceAll("\\((\\d)\\)", "$1");
+          //Note that for mxparser, square root requires parentheses
+          tstr = tstr.replaceAll("^\\((\\d*)\\)|([^√])\\((\\d*)\\)", "$1$2$3");
+          tstr = tstr.replaceAll("null", "");
           tstr = tstr.replaceAll("\\(\\)", "");
         }
+        System.out.println("tstr: " + tstr);
         return tstr;
     }
 
