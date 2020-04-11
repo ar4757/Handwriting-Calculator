@@ -33,7 +33,7 @@ public class PracticeActivity extends AppCompatActivity {
 
     Double answer = 0d;
     TextView practiceProblemView;   //text view where we show the practice problems
-
+    TextView inputResultView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,6 +50,7 @@ public class PracticeActivity extends AppCompatActivity {
         arr[3] = this.getIntent().getBooleanExtra("subBox", false);
 
         practiceProblemView = findViewById(R.id.practiceProblemsId);
+        inputResultView = findViewById(R.id.GestureFeedback);
 
         generateProblem();
 
@@ -77,9 +78,10 @@ public class PracticeActivity extends AppCompatActivity {
         upArrow.setColorFilter(getResources().getColor(R.color.design_default_color_on_secondary), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-
-
         hwView = findViewById(R.id.handwriting);
+
+        hwView.writeGestureStringToTextArea (inputResultView);
+
 //        TextView tv = findViewById(R.id.solution);
 //        hwView.setTextArea(tv);
         if (!hwView.libraryLoaded) {
@@ -88,7 +90,6 @@ public class PracticeActivity extends AppCompatActivity {
         } else {
             GestureOverlayView gov = (GestureOverlayView) findViewById(R.id.overlay);
             hwView.setOverlayView(gov);
-
         }
     } //constructor
 
@@ -175,7 +176,6 @@ public class PracticeActivity extends AppCompatActivity {
     //--------------------*/
     private double getAnswer() {
         return answer;
-
     }
 
     //--------------------*/
@@ -229,7 +229,7 @@ public class PracticeActivity extends AppCompatActivity {
         }
         customPopUp(title, message, b1Title, b2Title);
         clear();
-
+        inputResultView.setText("");
     }
 
 
@@ -336,7 +336,8 @@ public class PracticeActivity extends AppCompatActivity {
         String title = "ANSWER";
         String message = "The correct answer = " + value;
         customPopUp(title,message,"", getString(R.string.next));
-
+        inputResultView.setText("");
+        clear();
     }
 
     //---------------------*/
@@ -368,11 +369,13 @@ public class PracticeActivity extends AppCompatActivity {
             case R.id.action_undo:
                 // User chose "undo" - undo the last gesture
                 undo();
+                inputResultView.setText(hwView.getTextString());
                 break;
 
             case R.id.action_clear:
                 // User chose "clear" - clear canvas and clear formula area
                 clear();
+                inputResultView.setText("");
                 break;
 
             case R.id.action_inc:

@@ -69,7 +69,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
                 android:layout_height="326dp"
-                app:srcCompat="@drawable/calculator_help" />
+                app:srcCompat="@drawable/calc_h" />
 
             <TextView
                 android:id="@+id/calc_help_text"
@@ -95,7 +95,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
                 android:layout_height="326dp"
-                app:srcCompat="@drawable/help_prac" />
+                app:srcCompat="@drawable/prac_h" />
 
             <TextView
                 android:id="@+id/prac_help_text"
