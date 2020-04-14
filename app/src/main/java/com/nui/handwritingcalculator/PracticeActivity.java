@@ -117,7 +117,7 @@ public class PracticeActivity extends AppCompatActivity {
         if(scores!=0){
             double stemp = (scores * 100)/countproblems;
             String result = String.format("%.1f", stemp);
-            scorecard.setText("current scores "+scores +"/"+countproblems+"("+result+")%");
+            scorecard.setText("scores: "+scores +"/"+countproblems+" ("+result+")%");
         }
         if (arr[0] || arr[1] || arr[2] || arr[3]) {
             while (!arr[prob]) {
