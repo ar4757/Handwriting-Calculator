@@ -29,11 +29,13 @@ public class PracticeActivity extends AppCompatActivity {
     private HandwritingView hwView;
     Random rand = new Random();
     int countproblems = 0;
+    int scores = 0;
     boolean arr[];
 
     Double answer = 0d;
     TextView practiceProblemView;   //text view where we show the practice problems
     TextView inputResultView;
+    TextView scorecard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,6 +53,7 @@ public class PracticeActivity extends AppCompatActivity {
 
         practiceProblemView = findViewById(R.id.practiceProblemsId);
         inputResultView = findViewById(R.id.GestureFeedback);
+        scorecard = findViewById(R.id.scores);
 
         generateProblem();
 
@@ -111,6 +114,11 @@ public class PracticeActivity extends AppCompatActivity {
 
     private void generateProblem() {
         int prob = chooseproblem();
+        if(scores!=0){
+            double stemp = (scores * 100)/countproblems;
+            String result = String.format("%.1f", stemp);
+            scorecard.setText("current scores "+scores +"/"+countproblems+"("+result+")%");
+        }
         if (arr[0] || arr[1] || arr[2] || arr[3]) {
             while (!arr[prob]) {
                 prob = chooseproblem();
@@ -217,6 +225,7 @@ public class PracticeActivity extends AppCompatActivity {
                 title = "CORRECT!";
                 message = "Your answer of " + userString + " is correct!";
                 b1Title = "";
+                scores++;
             }
             else {
                 title = "WRONG!";

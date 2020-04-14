@@ -93,5 +93,6 @@
     ]]>
 </string>
     <string name="RecognizedInput">Recognized Input:</string>
+    <string name="current_scores">current scores -/-</string>
 
 </resources>

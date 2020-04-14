@@ -23,6 +23,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/scores"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:background="@color/design_default_color_on_secondary"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:text="@string/current_scores" />
 
     <TextView
         android:id="@+id/problemHeader"
@@ -31,7 +43,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="0dp"
-
         android:background="@color/design_default_color_background"
         android:gravity="start"
         android:text="@string/problemHeader"
